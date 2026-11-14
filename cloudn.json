@@ -1,0 +1,41 @@
+{
+  "name": "Cloudn",
+  "identifier": "com.mengangs.cloudn.source",
+  "sourceURL": "https://raw.githubusercontent.com/thunderfireCN/livecontainer-sources/main/cloudn.json",
+  "subtitle": "视频解析下载",
+  "description": "Cloudn：视频解析下载工具，支持抖音、快手、哔哩哔哩等站点，网页嗅探找视频地址。本源由 Lyn 的公开仓库自动维护，安装包为作者发布的未签名 IPA。",
+  "iconURL": "https://raw.githubusercontent.com/mengangs/Cloudn/main/docs/assets/icon-light.png",
+  "website": "https://github.com/mengangs/Cloudn",
+  "tintColor": "#EA580C",
+  "featuredApps": [
+    "com.mengangs.Cloudn"
+  ],
+  "apps": [
+    {
+      "name": "Cloudn",
+      "bundleIdentifier": "com.mengangs.Cloudn",
+      "developerName": "mengangs",
+      "subtitle": "视频解析下载",
+      "localizedDescription": "Cloudn：视频解析下载工具，支持抖音、快手、哔哩哔哩等站点，网页嗅探找视频地址。本源由 Lyn 的公开仓库自动维护，安装包为作者发布的未签名 IPA。",
+      "iconURL": "https://raw.githubusercontent.com/mengangs/Cloudn/main/docs/assets/icon-light.png",
+      "tintColor": "#EA580C",
+      "category": "utilities",
+      "versions": [
+        {
+          "version": "1.4.1",
+          "buildVersion": "14",
+          "date": "2026-10-24T03:52:30Z",
+          "localizedDescription": "# Cloudn 1.4.1\n\n这一版提升解析速度，并让网页嗅探更快找到视频。\n\n## 解析更快\n\n- **抖音**：网页验证与分享页两条路线同时进行，谁先拿到结果用谁。以前要等网页验证失败（最长 40 秒）才换分享页。\n- **抖音、Facebook、小黑盒、快手主页**：输入框认出这类链接时提前做好准备，点「解析」后少等一次启动。\n- **哔哩哔哩**：登录后字幕与视频流同时获取；抖音探测画质改为同时进行。\n- **重复解析秒开**：10 分钟内再次解析同一链接（从「最近」点开、返回再进）直接用上次的结果。解析失败不保留，登录或切换账号后会重新解析。\n\n## 网页嗅探\n\n- 打开网页的同时检查页面源码，源码里直接写着的视频、音频地址不用等播放就先列出来；找不到时和以前一样，播放后自动抓取。\n\n## 诊断\n\n- 诊断日志会记录每次解析各步骤的用时（只记平台和秒数，不记链接）。遇到解析慢，可在「设置」导出日志反馈。\n\n## 安装\n\n下载下方附件里的 `Cloudn-v1.4.1.ipa`，自行签名后安装（需要 iOS 17 及以上）；已安装的用户可在「设置 › 检查更新」里获取。",
+          "downloadURL": "https://github.com/mengangs/Cloudn/releases/download/v1.4.1/Cloudn-v1.4.1.ipa",
+          "size": 8979537,
+          "minOSVersion": "17.0"
+        }
+      ],
+      "appPermissions": {
+        "entitlements": [],
+        "privacy": {}
+      }
+    }
+  ],
+  "news": []
+}
