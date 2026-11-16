@@ -8,13 +8,13 @@ Sources tab can add each by URL and offer installs / updates.
 Usage: python3 scripts/update_sources.py   (run from the repo root)
 
 - Fetches each upstream repo's latest release (GitHub API; GITHUB_TOKEN is
-  used when present, otherwise unauthenticated).
+used when present, otherwise unauthenticated).
 - Downloads the .ipa asset and reads the REAL bundle ID / version / build /
-  minOS from its Info.plist. The tag alone is never trusted: AvPlay changed
-  its bundle ID from com.javdb.avplay to com.javdb.avplay2 in 2.2.2.
+minOS from its Info.plist. The tag alone is never trusted: AvPlay changed
+its bundle ID from com.javdb.avplay to com.javdb.avplay2 in 2.2.2.
 - Prepends a new version entry when (version, build) is new; keeps the
-  newest 5 versions. If the bundle ID changed, the app entry is updated and
-  the change is noted in the new version's description.
+newest 5 versions. If the bundle ID changed, the app entry is updated and
+the change is noted in the new version's description.
 - Writes <app>.json in the repo root. Safe to re-run: no change, no rewrite.
 """
 
@@ -81,6 +81,25 @@ APPS = [
             "安装包为作者发布的未签名 IPA。"
         ),
     },
+    {
+        "file": "hghubx.json",
+        "upstream": "zxsos/HGhubX",
+        "name": "HGhubX",
+        "identifier": "com.hghubx.app.source",
+        "subtitle": "短剧播放",
+        "developer": "zxsos",
+        "category": "entertainment",
+        "tint": "#0F3D4A",
+        "icon": "https://raw.githubusercontent.com/zxsos/HGhubX/main/app-icon.png",
+        "website": "https://github.com/zxsos/HGhubX",
+        "description": (
+            "HGhubX：短剧客户端，Minireel/HGhub 的后续分支"
+            "（原仓库已删库停更）。本源由 Lyn 的公开仓库自动维护，"
+            "安装包为作者发布的未签名 IPA。"
+            "注意：包名 com.hghubx.app 与旧版 HGhub 不同，装上是另一个 App，"
+            "旧版的收藏与观看记录不会带过来。"
+        ),
+    },
 ]
 
 MAX_VERSIONS = 5
@@ -128,81 +147,81 @@ def main():
             ipa_path = os.path.join(td, asset["name"])
             urllib.request.urlretrieve(asset["browser_download_url"], ipa_path)
             info = read_ipa_info(ipa_path)
-        if not info["bundle"] or not info["version"]:
-            print(f"[{app['name']}] unreadable Info.plist, skipped")
-            continue
+            if not info["bundle"] or not info["version"]:
+                print(f"[{app['name']}] unreadable Info.plist, skipped")
+                continue
 
-        path = os.path.join(root, app["file"])
-        existing = None
-        if os.path.exists(path):
-            with open(path, encoding="utf-8") as fh:
-                existing = json.load(fh)
+            path = os.path.join(root, app["file"])
+            existing = None
+            if os.path.exists(path):
+                with open(path, encoding="utf-8") as fh:
+                    existing = json.load(fh)
 
-        versions = []
-        if existing:
-            versions = existing.get("apps", [{}])[0].get("versions", [])
-        if versions and versions[0].get("version") == info["version"] \
-                and str(versions[0].get("buildVersion")) == info["build"]:
-            print(f"[{app['name']}] already at {info['version']} ({info['build']})")
-            continue
+            versions = []
+            if existing:
+                versions = existing.get("apps", [{}])[0].get("versions", [])
+            if versions and versions[0].get("version") == info["version"] \
+                    and str(versions[0].get("buildVersion")) == info["build"]:
+                print(f"[{app['name']}] already at {info['version']} ({info['build']})")
+                continue
 
-        body = (rel.get("body") or "").strip()[:MAX_BODY_CHARS]
-        old_bundle = None
-        if existing:
-            old_bundle = existing.get("apps", [{}])[0].get("bundleIdentifier")
-        note = ""
-        if old_bundle and old_bundle != info["bundle"]:
-            note = (
-                f"⚠️ 注意：本版包名由 {old_bundle} 改为 {info['bundle']}，"
-                "与旧版不是同一个包名，装上会是另一个 App，数据不互通，"
-                "作者建议 iOS 用户先用云备份。\n\n"
-            )
-        entry = {
-            "version": info["version"],
-            "buildVersion": info["build"],
-            "date": rel.get("published_at"),
-            "localizedDescription": (note + body) if body else note.rstrip("\n"),
-            "downloadURL": asset["browser_download_url"],
-            "size": asset["size"],
-            "minOSVersion": info["min_os"],
-        }
-        versions = [entry] + [v for v in versions
-                              if not (v.get("version") == info["version"]
-                                      and str(v.get("buildVersion")) == info["build"])]
-        versions = versions[:MAX_VERSIONS]
+            body = (rel.get("body") or "").strip()[:MAX_BODY_CHARS]
+            old_bundle = None
+            if existing:
+                old_bundle = existing.get("apps", [{}])[0].get("bundleIdentifier")
+            note = ""
+            if old_bundle and old_bundle != info["bundle"]:
+                note = (
+                    f"⚠️ 注意：本版包名由 {old_bundle} 改为 {info['bundle']}，"
+                    "与旧版不是同一个包名，装上会是另一个 App，数据不互通，"
+                    "作者建议 iOS 用户先用云备份。\n\n"
+                )
+            entry = {
+                "version": info["version"],
+                "buildVersion": info["build"],
+                "date": rel.get("published_at"),
+                "localizedDescription": (note + body) if body else note.rstrip("\n"),
+                "downloadURL": asset["browser_download_url"],
+                "size": asset["size"],
+                "minOSVersion": info["min_os"],
+            }
+            versions = [entry] + [v for v in versions
+                                 if not (v.get("version") == info["version"]
+                                         and str(v.get("buildVersion")) == info["build"])]
+            versions = versions[:MAX_VERSIONS]
 
-        source = {
-            "name": app["name"],
-            "identifier": app["identifier"],
-            "sourceURL": f"{RAW_BASE}/{app['file']}",
-            "subtitle": app["subtitle"],
-            "description": app["description"],
-            "iconURL": app["icon"],
-            "website": app["website"],
-            "tintColor": app["tint"],
-            "featuredApps": [info["bundle"]],
-            "apps": [
-                {
-                    "name": app["name"],
-                    "bundleIdentifier": info["bundle"],
-                    "developerName": app["developer"],
-                    "subtitle": app["subtitle"],
-                    "localizedDescription": app["description"],
-                    "iconURL": app["icon"],
-                    "tintColor": app["tint"],
-                    "category": app["category"],
-                    "versions": versions,
-                    "appPermissions": {"entitlements": [], "privacy": {}},
-                }
-            ],
-            "news": [],
-        }
-        with open(path, "w", encoding="utf-8") as fh:
-            json.dump(source, fh, ensure_ascii=False, indent=2)
-            fh.write("\n")
-        print(f"[{app['name']}] wrote {info['version']} ({info['build']}) "
-              f"bundle {info['bundle']} size {asset['size']}")
-        changed.append(app["file"])
+            source = {
+                "name": app["name"],
+                "identifier": app["identifier"],
+                "sourceURL": f"{RAW_BASE}/{app['file']}",
+                "subtitle": app["subtitle"],
+                "description": app["description"],
+                "iconURL": app["icon"],
+                "website": app["website"],
+                "tintColor": app["tint"],
+                "featuredApps": [info["bundle"]],
+                "apps": [
+                    {
+                        "name": app["name"],
+                        "bundleIdentifier": info["bundle"],
+                        "developerName": app["developer"],
+                        "subtitle": app["subtitle"],
+                        "localizedDescription": app["description"],
+                        "iconURL": app["icon"],
+                        "tintColor": app["tint"],
+                        "category": app["category"],
+                        "versions": versions,
+                        "appPermissions": {"entitlements": [], "privacy": {}},
+                    }
+                ],
+                "news": [],
+            }
+            with open(path, "w", encoding="utf-8") as fh:
+                json.dump(source, fh, ensure_ascii=False, indent=2)
+                fh.write("\n")
+            print(f"[{app['name']}] wrote {info['version']} ({info['build']}) "
+                  f"bundle {info['bundle']} size {asset['size']}")
+            changed.append(app["file"])
     print("changed:", changed if changed else "none")
     return 0
 
