@@ -100,6 +100,30 @@ APPS = [
             "旧版的收藏与观看记录不会带过来。"
         ),
     },
+    {
+        # Upstream publishes iOS builds ONLY as prereleases, so
+        # /releases/latest (which skips prereleases) 404s for this repo.
+        # The list endpoint is used instead, picking the newest release
+        # that carries a .ipa asset (Android releases only have .apk).
+        "file": "iduanju.json",
+        "upstream": "my-name-is-alan/iDuanJu",
+        "prerelease": True,
+        "name": "i短剧",
+        "identifier": "com.local.stv.source",
+        "subtitle": "多源短剧/视频聚合",
+        "developer": "my-name-is-alan",
+        "category": "entertainment",
+        "tint": "#2563EB",
+        "icon": "https://raw.githubusercontent.com/my-name-is-alan/iDuanJu/main/STV/Assets.xcassets/AppIcon.appiconset/AppIcon-1024.png",
+        "website": "https://github.com/my-name-is-alan/iDuanJu",
+        "description": (
+            "i短剧：免费开源的 iOS 多源短剧 / 视频 / 漫画 / Telegram 聚合播放器"
+            "（SwiftUI + QuickJS 插件沙箱，GPL-3.0）。App 本身不托管任何内容，"
+            "数据由设备直接向各公开站点请求。本源由 Lyn 的公开仓库自动维护，"
+            "安装包为作者发布的未签名 IPA。注意：上游只发预发布版，"
+            "包名 com.local.STV，最低 iOS 18.0。"
+        ),
+    },
 ]
 
 MAX_VERSIONS = 5
@@ -132,17 +156,35 @@ def read_ipa_info(ipa_path):
     }
 
 
+def fetch_release(app):
+    """Return (release, ipa_asset) for an app.
+
+    Normal repos use /releases/latest. Prerelease-only repos (iDuanJu)
+    need the releases list, scanned newest-first for the first release
+    carrying a .ipa asset.
+    """
+    if app.get("prerelease"):
+        rels = api_get(f"https://api.github.com/repos/{app['upstream']}/releases?per_page=10")
+        for rel in rels:
+            assets = [a for a in rel.get("assets", [])
+                      if a["name"].lower().endswith(".ipa")]
+            if assets:
+                return rel, assets[0]
+        return None, None
+    rel = api_get(f"https://api.github.com/repos/{app['upstream']}/releases/latest")
+    assets = [a for a in rel.get("assets", []) if a["name"].lower().endswith(".ipa")]
+    return rel, (assets[0] if assets else None)
+
+
 def main():
     root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     changed = []
     for app in APPS:
-        rel = api_get(f"https://api.github.com/repos/{app['upstream']}/releases/latest")
-        tag = (rel.get("tag_name") or "").strip()
-        assets = [a for a in rel.get("assets", []) if a["name"].lower().endswith(".ipa")]
-        if not assets:
-            print(f"[{app['name']}] no .ipa asset in {tag}, skipped")
+        rel, asset = fetch_release(app)
+        if rel is None or asset is None:
+            print(f"[{app['name']}] no .ipa release found, skipped")
             continue
-        asset = assets[0]
+        tag = (rel.get("tag_name") or "").strip()
         with tempfile.TemporaryDirectory() as td:
             ipa_path = os.path.join(td, asset["name"])
             urllib.request.urlretrieve(asset["browser_download_url"], ipa_path)
