@@ -22,6 +22,15 @@
       "category": "entertainment",
       "versions": [
         {
+          "version": "1.6",
+          "buildVersion": "20",
+          "date": "2026-11-21T10:32:46Z",
+          "localizedDescription": "# i短剧 1.6b20 详情页渲染修复版\n\n- 详情页首屏背景使用降采样图参与模糊，避免高分辨率封面拖慢滚动。\n- 保留海报卡片的原始清晰度。\n- 延续上一版的横竖屏切换和详情页状态更新优化。\n\nIPA 为未签名包，需要自行重签后安装。Android 包使用项目现有分发签名。\n\n---\n包内版本为 1.6 build 20。IPA 未签名（最低 iOS 18），请自行重签侧载。\n\n请选择 Assets 中的 APK / IPA，不要下载 Source code。SHA-256 见附件。\n构建源码：7b42221cd044f83d792dd7bfe7041bc7a8127043\n自动构建：https://github.com/my-name-is-alan/iDuanJu/actions/runs/44893381047",
+          "downloadURL": "https://github.com/my-name-is-alan/iDuanJu/releases/download/v1.6b20-cover-performance/STV-1.6b20-unsigned.ipa",
+          "size": 46903453,
+          "minOSVersion": "16.0"
+        },
+        {
           "version": "1.5",
           "buildVersion": "15",
           "date": "2026-11-20T08:35:34Z",
