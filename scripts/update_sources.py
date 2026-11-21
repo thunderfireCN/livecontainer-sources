@@ -124,6 +124,24 @@ APPS = [
             "包名 com.local.STV，最低 iOS 18.0。"
         ),
     },
+    {
+        "file": "piliplus.json",
+        "upstream": "bggRGjQaUbCoE/PiliPlus",
+        "name": "PiliPlus",
+        "identifier": "com.example.piliplus.source",
+        "subtitle": "第三方 Bilibili 客户端",
+        "developer": "bggRGjQaUbCoE",
+        "category": "entertainment",
+        "tint": "#FB7299",
+        "icon": "https://raw.githubusercontent.com/bggRGjQaUbCoE/PiliPlus/main/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-1024x1024@1x.png",
+        "website": "https://github.com/bggRGjQaUbCoE/PiliPlus",
+        "description": (
+            "PiliPlus：第三方哔哩哔哩客户端（Flutter 开源），"
+            "支持视频播放、弹幕等。本源由 Lyn 的公开仓库自动维护，"
+            "安装包为作者发布的未签名 IPA。"
+            "注意：包名 com.example.piliplus，最低 iOS 15.0。"
+        ),
+    },
 ]
 
 MAX_VERSIONS = 5
