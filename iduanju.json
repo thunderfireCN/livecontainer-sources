@@ -2,7 +2,7 @@
   "name": "i短剧",
   "identifier": "com.local.stv.source",
   "sourceURL": "https://raw.githubusercontent.com/thunderfireCN/livecontainer-sources/main/iduanju.json",
-  "subtitle": "最近更新: 26/11/21，版本: V1.6b22",
+  "subtitle": "最近更新: 26/11/22，版本: V1.6b23",
   "description": "App 本身不托管任何内容，数据由设备直接向各公开站点请求。本源由 Lyn 的公开仓库自动维护，安装包为作者发布的未签名 IPA。注意：上游只发预发布版，包名 com.local.STV，最低 iOS 18.0。",
   "iconURL": "https://raw.githubusercontent.com/my-name-is-alan/iDuanJu/main/STV/Assets.xcassets/AppIcon.appiconset/AppIcon-1024.png",
   "website": "https://github.com/my-name-is-alan/iDuanJu",
@@ -15,12 +15,21 @@
       "name": "i短剧",
       "bundleIdentifier": "com.local.STV",
       "developerName": "my-name-is-alan",
-      "subtitle": "最近更新: 26/11/21，版本: V1.6b22",
+      "subtitle": "最近更新: 26/11/22，版本: V1.6b23",
       "localizedDescription": "App 本身不托管任何内容，数据由设备直接向各公开站点请求。本源由 Lyn 的公开仓库自动维护，安装包为作者发布的未签名 IPA。注意：上游只发预发布版，包名 com.local.STV，最低 iOS 18.0。",
       "iconURL": "https://raw.githubusercontent.com/my-name-is-alan/iDuanJu/main/STV/Assets.xcassets/AppIcon.appiconset/AppIcon-1024.png",
       "tintColor": "#2563EB",
       "category": "entertainment",
       "versions": [
+        {
+          "version": "1.6",
+          "buildVersion": "23",
+          "date": "2026-11-22T07:25:16Z",
+          "localizedDescription": "# i短剧 1.6b23 iOS 锁屏恢复画音同步修复版\n\n- **修复 iOS 锁屏/退后台返回后「只有声音、画面卡住 / 音画不同步」（#17）**：\n  - `MPVPlayerEngine` 监听 `didEnterBackground` / `willEnterForeground` / `didBecomeActive` 生命周期（主播放器与 TVBox 播放器同时生效）；\n  - 锁屏退后台前同步暂停并卸载 `vid`（释放 MoltenVK Metal swapchain 与 VideoToolbox 硬解会话），避免后台 GPU 限制导致画面卡死；\n  - 解锁返回前台后重建视频输出、对点播片源执行精确 `seek` 对齐音画时钟并恢复播放。\n\nIPA 为未签名包，需要自行重签后安装。Android 包使用项目现有分发签名。\n\n---\n包内版本为 1.6 build 23。IPA 未签名（最低 iOS 18），请自行重签侧载。\n\n请选择 Assets 中的 APK / IPA，不要下载 Source code。SHA-256 见附件。\n构建源码：727557374f3ded1de9f5d44b4783a20f0e9f90d5\n自动构建：https://github.com/my-name-is-alan/iDuanJu/actions/runs/44996526622",
+          "downloadURL": "https://github.com/my-name-is-alan/iDuanJu/releases/download/v1.6b23-lockscreen-fix/STV-1.6b23-unsigned.ipa",
+          "size": 46934109,
+          "minOSVersion": "16.0"
+        },
         {
           "version": "1.6",
           "buildVersion": "22",
