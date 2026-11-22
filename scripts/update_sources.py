@@ -15,6 +15,9 @@ its bundle ID from com.javdb.avplay to com.javdb.avplay2 in 2.2.2.
 - Prepends a new version entry when (version, build) is new; keeps the
 newest 5 versions. If the bundle ID changed, the app entry is updated and
 the change is noted in the new version's description.
+- The subtitle (source-level and app-level) is generated from the newest
+version: "最近更新：YY/MM/DD，版本：VX.Y.Z". No purpose words: the
+owner knows what each app is for.
 - Writes <app>.json in the repo root. Safe to re-run: no change, no rewrite.
 """
 
@@ -25,6 +28,7 @@ import sys
 import tempfile
 import urllib.request
 import zipfile
+from datetime import datetime
 
 REPO = "thunderfireCN/livecontainer-sources"
 BRANCH = "main"
@@ -36,15 +40,13 @@ APPS = [
         "upstream": "LinkPass888/AirBeep",
         "name": "AirBeep",
         "identifier": "com.linkpass888.airbeep.source",
-        "subtitle": "自定义通话录音提示音",
         "developer": "LinkPass888",
         "category": "utilities",
         "tint": "#2563EB",
         "icon": "https://raw.githubusercontent.com/LinkPass888/AirBeep/main/Appicon.icon/Assets/call-recording-sound-icon-v5.png",
         "website": "https://github.com/LinkPass888/AirBeep",
         "description": (
-            "AirBeep：自定义 iPhone 通话录音提示音，可以消除提示音，也可恢复原音，"
-            "并能随时检查当前提示音状态。本源由 Lyn 的公开仓库自动维护，"
+            "本源由 Lyn 的公开仓库自动维护，"
             "安装包为作者发布的未签名 IPA。"
         ),
     },
@@ -53,14 +55,13 @@ APPS = [
         "upstream": "anonymousjav/AvPlayRelease",
         "name": "AvPlay",
         "identifier": "com.javdb.avplay2.source",
-        "subtitle": "影片播放器",
         "developer": "anonymousjav",
         "category": "entertainment",
         "tint": "#111111",
         "icon": "https://raw.githubusercontent.com/anonymousjav/AvPlayRelease/main/resources/logo.png",
         "website": "https://github.com/anonymousjav/AvPlayRelease",
         "description": (
-            "AvPlay：影片播放器。本源由 Lyn 的公开仓库自动维护，"
+            "本源由 Lyn 的公开仓库自动维护，"
             "安装包为作者发布的 IPA。"
         ),
     },
@@ -69,15 +70,13 @@ APPS = [
         "upstream": "mengangs/Cloudn",
         "name": "Cloudn",
         "identifier": "com.mengangs.cloudn.source",
-        "subtitle": "视频解析下载",
         "developer": "mengangs",
         "category": "utilities",
         "tint": "#EA580C",
         "icon": "https://raw.githubusercontent.com/mengangs/Cloudn/main/docs/assets/icon-light.png",
         "website": "https://github.com/mengangs/Cloudn",
         "description": (
-            "Cloudn：视频解析下载工具，支持抖音、快手、哔哩哔哩等站点，"
-            "网页嗅探找视频地址。本源由 Lyn 的公开仓库自动维护，"
+            "本源由 Lyn 的公开仓库自动维护，"
             "安装包为作者发布的未签名 IPA。"
         ),
     },
@@ -86,15 +85,14 @@ APPS = [
         "upstream": "zxsos/HGhubX",
         "name": "HGhubX",
         "identifier": "com.hghubx.app.source",
-        "subtitle": "短剧播放",
         "developer": "zxsos",
         "category": "entertainment",
         "tint": "#0F3D4A",
         "icon": "https://raw.githubusercontent.com/zxsos/HGhubX/main/app-icon.png",
         "website": "https://github.com/zxsos/HGhubX",
         "description": (
-            "HGhubX：短剧客户端，Minireel/HGhub 的后续分支"
-            "（原仓库已删库停更）。本源由 Lyn 的公开仓库自动维护，"
+            "Minireel/HGhub 的后续分支（原仓库已删库停更）。"
+            "本源由 Lyn 的公开仓库自动维护，"
             "安装包为作者发布的未签名 IPA。"
             "注意：包名 com.hghubx.app 与旧版 HGhub 不同，装上是另一个 App，"
             "旧版的收藏与观看记录不会带过来。"
@@ -110,15 +108,13 @@ APPS = [
         "prerelease": True,
         "name": "i短剧",
         "identifier": "com.local.stv.source",
-        "subtitle": "多源短剧/视频聚合",
         "developer": "my-name-is-alan",
         "category": "entertainment",
         "tint": "#2563EB",
         "icon": "https://raw.githubusercontent.com/my-name-is-alan/iDuanJu/main/STV/Assets.xcassets/AppIcon.appiconset/AppIcon-1024.png",
         "website": "https://github.com/my-name-is-alan/iDuanJu",
         "description": (
-            "i短剧：免费开源的 iOS 多源短剧 / 视频 / 漫画 / Telegram 聚合播放器"
-            "（SwiftUI + QuickJS 插件沙箱，GPL-3.0）。App 本身不托管任何内容，"
+            "App 本身不托管任何内容，"
             "数据由设备直接向各公开站点请求。本源由 Lyn 的公开仓库自动维护，"
             "安装包为作者发布的未签名 IPA。注意：上游只发预发布版，"
             "包名 com.local.STV，最低 iOS 18.0。"
@@ -129,15 +125,13 @@ APPS = [
         "upstream": "bggRGjQaUbCoE/PiliPlus",
         "name": "PiliPlus",
         "identifier": "com.example.piliplus.source",
-        "subtitle": "第三方 Bilibili 客户端",
         "developer": "bggRGjQaUbCoE",
         "category": "entertainment",
         "tint": "#FB7299",
         "icon": "https://raw.githubusercontent.com/bggRGjQaUbCoE/PiliPlus/main/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-1024x1024@1x.png",
         "website": "https://github.com/bggRGjQaUbCoE/PiliPlus",
         "description": (
-            "PiliPlus：第三方哔哩哔哩客户端（Flutter 开源），"
-            "支持视频播放、弹幕等。本源由 Lyn 的公开仓库自动维护，"
+            "本源由 Lyn 的公开仓库自动维护，"
             "安装包为作者发布的未签名 IPA。"
             "注意：包名 com.example.piliplus，最低 iOS 15.0。"
         ),
@@ -194,6 +188,47 @@ def fetch_release(app):
     return rel, (assets[0] if assets else None)
 
 
+def make_subtitle(version, date_iso):
+    """Subtitle from the newest version entry, e.g.
+    '最近更新：26/11/14，版本：V2.2.1'. Date is the version's release date.
+    """
+    if date_iso:
+        dt = datetime.fromisoformat(date_iso.replace("Z", "+00:00"))
+        return f"最近更新：{dt:%y/%m/%d}，版本：V{version}"
+    return f"版本：V{version}"
+
+
+def build_source(app, bundle, versions):
+    subtitle = make_subtitle(versions[0]["version"], versions[0].get("date")) \
+        if versions else ""
+    return {
+        "name": app["name"],
+        "identifier": app["identifier"],
+        "sourceURL": f"{RAW_BASE}/{app['file']}",
+        "subtitle": subtitle,
+        "description": app["description"],
+        "iconURL": app["icon"],
+        "website": app["website"],
+        "tintColor": app["tint"],
+        "featuredApps": [bundle],
+        "apps": [
+            {
+                "name": app["name"],
+                "bundleIdentifier": bundle,
+                "developerName": app["developer"],
+                "subtitle": subtitle,
+                "localizedDescription": app["description"],
+                "iconURL": app["icon"],
+                "tintColor": app["tint"],
+                "category": app["category"],
+                "versions": versions,
+                "appPermissions": {"entitlements": [], "privacy": {}},
+            }
+        ],
+        "news": [],
+    }
+
+
 def main():
     root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     changed = []
@@ -220,62 +255,38 @@ def main():
             versions = []
             if existing:
                 versions = existing.get("apps", [{}])[0].get("versions", [])
-            if versions and versions[0].get("version") == info["version"] \
-                    and str(versions[0].get("buildVersion")) == info["build"]:
+            is_new = not (versions and versions[0].get("version") == info["version"]
+                          and str(versions[0].get("buildVersion")) == info["build"])
+            if is_new:
+                body = (rel.get("body") or "").strip()[:MAX_BODY_CHARS]
+                old_bundle = None
+                if existing:
+                    old_bundle = existing.get("apps", [{}])[0].get("bundleIdentifier")
+                note = ""
+                if old_bundle and old_bundle != info["bundle"]:
+                    note = (
+                        f"⚠️ 注意：本版包名由 {old_bundle} 改为 {info['bundle']}，"
+                        "与旧版不是同一个包名，装上会是另一个 App，数据不互通，"
+                        "作者建议 iOS 用户先用云备份。\n\n"
+                    )
+                entry = {
+                    "version": info["version"],
+                    "buildVersion": info["build"],
+                    "date": rel.get("published_at"),
+                    "localizedDescription": (note + body) if body else note.rstrip("\n"),
+                    "downloadURL": asset["browser_download_url"],
+                    "size": asset["size"],
+                    "minOSVersion": info["min_os"],
+                }
+                versions = [entry] + [v for v in versions
+                                     if not (v.get("version") == info["version"]
+                                             and str(v.get("buildVersion")) == info["build"])]
+                versions = versions[:MAX_VERSIONS]
+
+            source = build_source(app, info["bundle"], versions)
+            if existing == source:
                 print(f"[{app['name']}] already at {info['version']} ({info['build']})")
                 continue
-
-            body = (rel.get("body") or "").strip()[:MAX_BODY_CHARS]
-            old_bundle = None
-            if existing:
-                old_bundle = existing.get("apps", [{}])[0].get("bundleIdentifier")
-            note = ""
-            if old_bundle and old_bundle != info["bundle"]:
-                note = (
-                    f"⚠️ 注意：本版包名由 {old_bundle} 改为 {info['bundle']}，"
-                    "与旧版不是同一个包名，装上会是另一个 App，数据不互通，"
-                    "作者建议 iOS 用户先用云备份。\n\n"
-                )
-            entry = {
-                "version": info["version"],
-                "buildVersion": info["build"],
-                "date": rel.get("published_at"),
-                "localizedDescription": (note + body) if body else note.rstrip("\n"),
-                "downloadURL": asset["browser_download_url"],
-                "size": asset["size"],
-                "minOSVersion": info["min_os"],
-            }
-            versions = [entry] + [v for v in versions
-                                 if not (v.get("version") == info["version"]
-                                         and str(v.get("buildVersion")) == info["build"])]
-            versions = versions[:MAX_VERSIONS]
-
-            source = {
-                "name": app["name"],
-                "identifier": app["identifier"],
-                "sourceURL": f"{RAW_BASE}/{app['file']}",
-                "subtitle": app["subtitle"],
-                "description": app["description"],
-                "iconURL": app["icon"],
-                "website": app["website"],
-                "tintColor": app["tint"],
-                "featuredApps": [info["bundle"]],
-                "apps": [
-                    {
-                        "name": app["name"],
-                        "bundleIdentifier": info["bundle"],
-                        "developerName": app["developer"],
-                        "subtitle": app["subtitle"],
-                        "localizedDescription": app["description"],
-                        "iconURL": app["icon"],
-                        "tintColor": app["tint"],
-                        "category": app["category"],
-                        "versions": versions,
-                        "appPermissions": {"entitlements": [], "privacy": {}},
-                    }
-                ],
-                "news": [],
-            }
             with open(path, "w", encoding="utf-8") as fh:
                 json.dump(source, fh, ensure_ascii=False, indent=2)
                 fh.write("\n")
