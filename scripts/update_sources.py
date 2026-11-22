@@ -103,9 +103,11 @@ APPS = [
         # /releases/latest (which skips prereleases) 404s for this repo.
         # The list endpoint is used instead, picking the newest release
         # that carries a .ipa asset (Android releases only have .apk).
+        # iOS tags carry a build suffix (v1.6b22), shown in the subtitle.
         "file": "iduanju.json",
         "upstream": "my-name-is-alan/iDuanJu",
         "prerelease": True,
+        "version_template": "V{version}b{build}",
         "name": "i短剧",
         "identifier": "com.local.stv.source",
         "developer": "my-name-is-alan",
@@ -160,7 +162,7 @@ APPS = [
         # follows the house format (last update date + version).
         "file": "zhihu.json",
         "upstream": "huamurui/zhihu-minus-minus",
-        "name": "知乎--",
+        "name": "知乎",
         "identifier": "com.huamurui.zhihuminusminus.source",
         "developer": "huamurui",
         "category": "social",
@@ -233,20 +235,30 @@ def fetch_release(app):
     return rel, pick_ipa(app, rel.get("assets", []))
 
 
-def make_subtitle(version, date_iso):
+def display_version(app, entry):
+    """Version string for the subtitle, e.g. 'V2.2.1'. Apps whose public
+    version carries a build suffix (iDuanJu tags like v1.6b22) set
+    version_template, e.g. 'V{version}b{build}' -> 'V1.6b22'.
+    """
+    tmpl = app.get("version_template", "V{version}")
+    return tmpl.format(version=entry["version"],
+                       build=entry.get("buildVersion", ""))
+
+
+def make_subtitle(app, entry):
     """Subtitle from the newest version entry, e.g.
     '最近更新:26/11/14，版本:V2.2.1'. Date is the version's release date.
     Colons are half-width ASCII; the comma stays full-width.
     """
+    date_iso = entry.get("date")
     if date_iso:
         dt = datetime.fromisoformat(date_iso.replace("Z", "+00:00"))
-        return f"最近更新:{dt:%y/%m/%d}，版本:V{version}"
-    return f"版本:V{version}"
+        return f"最近更新:{dt:%y/%m/%d}，版本:{display_version(app, entry)}"
+    return f"版本:{display_version(app, entry)}"
 
 
 def build_source(app, bundle, versions):
-    subtitle = make_subtitle(versions[0]["version"], versions[0].get("date")) \
-        if versions else ""
+    subtitle = make_subtitle(app, versions[0]) if versions else ""
     return {
         "name": app["name"],
         "identifier": app["identifier"],
