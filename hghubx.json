@@ -2,8 +2,8 @@
   "name": "HGhubX",
   "identifier": "com.hghubx.app.source",
   "sourceURL": "https://raw.githubusercontent.com/thunderfireCN/livecontainer-sources/main/hghubx.json",
-  "subtitle": "短剧播放",
-  "description": "HGhubX：短剧客户端，Minireel/HGhub 的后续分支（原仓库已删库停更）。本源由 Lyn 的公开仓库自动维护，安装包为作者发布的未签名 IPA。注意：包名 com.hghubx.app 与旧版 HGhub 不同，装上是另一个 App，旧版的收藏与观看记录不会带过来。",
+  "subtitle": "最近更新：26/11/21，版本：V2.2.6",
+  "description": "Minireel/HGhub 的后续分支（原仓库已删库停更）。本源由 Lyn 的公开仓库自动维护，安装包为作者发布的未签名 IPA。注意：包名 com.hghubx.app 与旧版 HGhub 不同，装上是另一个 App，旧版的收藏与观看记录不会带过来。",
   "iconURL": "https://raw.githubusercontent.com/zxsos/HGhubX/main/app-icon.png",
   "website": "https://github.com/zxsos/HGhubX",
   "tintColor": "#0F3D4A",
@@ -15,12 +15,21 @@
       "name": "HGhubX",
       "bundleIdentifier": "com.hghubx.app",
       "developerName": "zxsos",
-      "subtitle": "短剧播放",
-      "localizedDescription": "HGhubX：短剧客户端，Minireel/HGhub 的后续分支（原仓库已删库停更）。本源由 Lyn 的公开仓库自动维护，安装包为作者发布的未签名 IPA。注意：包名 com.hghubx.app 与旧版 HGhub 不同，装上是另一个 App，旧版的收藏与观看记录不会带过来。",
+      "subtitle": "最近更新：26/11/21，版本：V2.2.6",
+      "localizedDescription": "Minireel/HGhub 的后续分支（原仓库已删库停更）。本源由 Lyn 的公开仓库自动维护，安装包为作者发布的未签名 IPA。注意：包名 com.hghubx.app 与旧版 HGhub 不同，装上是另一个 App，旧版的收藏与观看记录不会带过来。",
       "iconURL": "https://raw.githubusercontent.com/zxsos/HGhubX/main/app-icon.png",
       "tintColor": "#0F3D4A",
       "category": "entertainment",
       "versions": [
+        {
+          "version": "2.2.6",
+          "buildVersion": "2.2.6",
+          "date": "2026-11-21T17:01:54Z",
+          "localizedDescription": "# HGhubX v2.2.6\n\n聚焦分类频道与官网排序同步、全站分页上滑自动加载、海报角标、多页左右滑动切栏与 FakeIP 代理连接修复；覆盖 Windows、macOS、Linux、Android 与 iOS 标准版。\n\n## 新增与优化\n1. **分类与原创频道与官网排序同步（#202、#211）**：短剧、漫剧频道的「最近更新」「当前热播」「精选推荐」以及「原创」频道的「全部原创」「原创漫剧」「原创短剧」优先解析官网服务端渲染频道页，与网站更新排序、总页数、标签及统计保持一致，解析异常时自动回退原有 JSON 接口。\n2. **海报左上角新增「原创」「热播」「新片」角标（#202、#211）**：瀑布流与横向预览卡片海报左上角按「原创」「热播」「新片」（72 小时窗口）顺序显示高对比度角标，避免与右上角评分重叠；集数状态移至海报底部遮罩左侧与播放量同排展示，「我的」页继续保留「新更 N 集」角标。\n3. **分页列表统一改为上滑自动加载（#202、#211）**：频道页、吃瓜列表、专题详情、标签详情、关注/创作者作品与全局/栏目搜索均在接近底部时自动续载下一页，不再常驻手动「加载更多」按钮；开启标签屏蔽时同样保持自动加载，仅当连续 2 页过滤后均无可见条目时熔断暂停并展示手动兜底按钮。\n4. **多页面支持左右滑动切换标签栏（#208、#209）**：排行榜支持左右滑动切换热播/推荐/潜力榜；「我的」页支持左右滑动切换收藏/历史；分类频道页支持左右滑动切换筛选 tab。\n5. **「我的」页批量管理新增「全选」（#205）**：收藏与观看历史进入多选模式后支持一键「全选」，并移除历史页底部多余的独立清空按钮，统一收口到批量管理操作栏。\n\n## 修复\n1. **iOS / 桌面 TUN FakeIP 代理导致请求全部被拒（#199）**：开启 Shadowrocket / Clash / Surge / sing-box 等 FakeIP 代理后，系统 DNS 同时返回 FakeIP IPv4 与合成 ULA IPv6 假地址，此前整组校验会误判私网并拒绝请求；现严格模式在系统解析路径丢弃不可直达的假 IPv6 ULA、仅固定可放行的地址，整组均不可放行时仍拒绝，且不放宽任何安全白名单。\n2. **搜索历史长按编辑态胶囊字号与尺寸异常（#207）**：修正搜索历史进入编辑态时胶囊字号与内边距跳动问题，保持常规态与编辑态视觉一致。\n\n## 安装与兼容提示\n- Windows 提供 NSIS 安装包与便携压缩包；macOS 提供 Universal DMG；Linux 提供 amd64 `.deb`；Android 标准版按 ABI 提供已签名 APK（`versionCode=2002006`）；iOS 提供未签名 `.ipa`（需自行签名安装）。\n- 覆盖安装保留本机收藏、观看记录、界面语言、线路与内容偏好；Android TV 版（`com.hghubx.tv`）由独立 `tv-v2.2.4` 标签单独发布。\n\n## 致谢\n- 感谢 @zxsos 完成 #202/#211 分类频道与官网排序同步、全站上滑自动加载、海报角标以及 #210/#212/#214 工作流拆分与自动预览体系建设。\n- 感谢 @oahceh 贡献 #199 FakeIP DNS 混合结果固定修复。\n- 感谢 @makisekurisu-jp 贡献 #205、#207、#208、#209 批量全选、搜索历史样式与多页滑动切栏优化。\n\n## 验证\n- 本地 `make check`（Rust 118 项单元测试通过 / 0 失败 / 4 联网测试跳过、TypeScript 三套配置与 Vite 构建、789 项多语言词典键一致性校验、文档链接、尺寸预算、版本同步）与 `pnpm test:smoke`（12/12 套件通过，含 `channel-autoload-badges`、`profile-swipe`、`channel-swipe`、`rank-swipe`）全量通过。\n- 各平台正式安装包由 `v2.2.6` 标签触发的 GitHub Actions `Release` 工作流构建并校验。",
+          "downloadURL": "https://github.com/zxsos/HGhubX/releases/download/v2.2.6/HGhubX_2.2.6_ios.ipa",
+          "size": 3990783,
+          "minOSVersion": "15.0"
+        },
         {
           "version": "2.2.5",
           "buildVersion": "2.2.5",
@@ -55,15 +64,6 @@
           "localizedDescription": "## HGhubX 2.2.0\n\n架构重构 + Android TV / 车机老内核兼容 + 开屏与播放体验全面升级的正式版本。包含 pre.1 / pre.2 及后续全仓审计与性能打磨的全部内容。\n\n### 新增\n\n- **Android TV 独立版**（`com.hghubx.tv`）：Leanback 桌面入口与横屏 Banner、遥控器方向键 / 确认 / 返回 / 媒体键导航、本地 IndexedDB 片库与拼音/标题搜索索引、overscan 安全边距设置。\n- **老 WebView 与车机大屏兼容**（#138）：前端构建降级至 `chrome66 / safari14.1`（含 CSS `dvh / color-mix / cascade-layers` 回退、经典 `iife` Worker、ES5 启动看门狗与运行时 API 垫片）；Android 标准版原生层桥接系统状态栏与车机常驻底栏安全区（`--native-sat/sab/sal/sar`），`quick` 与正式构建均覆盖 32 位 `arm` 与 64 位 `arm64`。\n- **长按加速可换挡**（#146）：右上长按 2x 起，按住左右滑每 80px 换一档（2x → 3x → 4x → 6x，来回滑可升可降，每档震动反馈）；上滑后松手锁定当前档位。\n- 设置 → 播放新增「全屏无操作自动隐藏控件」：关 / 3秒 / 5秒 / 10秒（默认 3 秒，暂停时不隐藏）（#146）。\n- 长按操作提示加入「双击暂停播放」说明。\n\n### 改进\n\n- **开屏零闪烁与冷启动大幅提速**：\n  - 原生窗口、`index.html` `data-hg-launching` 背景锁与开屏层统一锚定 `#071218`，彻底消除亮色/暗色主题切换时的首尾白屏或灰屏闪烁，以及 `<Suspense>` 未就绪时的空帧跳变；\n  - 开屏动画改为全外层独立 GPU 合成层（仅驱动 `transform3d` + `opacity`），消除逐帧 SVG 路径重绘与多段缓动顿挫，首帧独占上屏后下一帧并发挂载业务壳；\n  - 消除入口二次动态分包瀑布流，并将 `Feed` + `hls.js`（`524 kB`）从首屏壳剥离并行预热，`AcceptedApp` 关键路径体积缩减 **84.6%**（降至 `113.8 kB`），首屏选线与推荐流请求显著提前。\n- **前端渲染与状态隔离**：Toast 通知与账号同步状态改为独立订阅，避免全局重渲染；内联播放器全屏与分页请求逻辑收口复用；亮色模式表面层次与对比度优化。\n- 加速提示弱化并入顶部倍速胶囊（「上滑后松手锁定 / 松手锁定」），移除画面中部拖放提示；全屏右上「退出 / 锁定」两键 44×44、间距 12px（#146）；大屏横屏操作栏自动切换双列紧凑布局避免顶边裁切（#138）。\n- **全站界面视觉对齐与内容屏蔽补全**：修复分类页「排行榜 / 专题 / 标签」窄屏高度偏大与上偏错位并补齐专属语义图标，统一全站二级页顶栏尺寸与边距、标签分组卡片与单行屏蔽工具条、搜索页三段式卡片间距、海报双徽章等高防撞、桌面侧栏图标中轴及设置展开面板双重内边距问题；搜索页「热搜榜」与「热门题材」同步接入屏蔽标签过滤；移除视频与帖子详情的分享入口并重排操作栏对齐；清理冗余副标题，「HGhubX 热榜」统一为「排行榜」。\n- 仓库结构整理：前端按 `app / features / shared` 归组并拆分 `Feed` 子面板与手势模块；Rust 按 `api / net / media / lines` 拆分并独立 `updater / net_diag / publish_parser`。\n\n### 修复\n\n- **切换线路不再掉登录，且在播流不中断转圈**（#145）：\n  - 固定线路与发布页确认镜像之间手动/自动切线及冷启动重启均保留登录会话（即使当前回退到固定线路也会校验已存镜像信任）；自定义线路仍严格清空凭据，移除 `.ai` 导航站；\n  - 区分代理变更与线路变更事件：后台自动选线后健康在播视频保持连贯播放，仅对未就绪/报错/预取项按新线路重拉。\n- **播放与多实例交互修复**：\n  - 修复移动端底部信息浮层遮挡右侧「全屏」按钮命中区域，并补齐旧版 WebKit 前缀 Fullscreen API、桌面窗口全屏回退及 Linux WebKitGTK 窗口全屏状态同步；\n  - 暂停状态下进入/退出全屏或拖动进度条均保留用户暂停意图，不再意外恢复播放（#138）；\n  - 修复压栈多级 `Feed` 页面同时响应全屏快捷键或画中画状态串扰、音量滑块松手跳变、锁屏态残留手势、搜索返回焦点与我的/关注列表状态同步细节；\n  - 竖屏视频按原始比例完整显示，横屏保留「铺满 / 适应」切换（#142）。\n- **后端安全与缓存隔离加固**：媒体分片与图片缓存纳入代理/安全模式代次隔离，严格校验本机 loopback Host/Origin 边界，更新检查精确匹配当前平台安装包后缀，安卓剪贴板诊断日志裁剪至 256KiB 上限（#142）。\n- 启动动画期间按返回键仅跳过开屏，不再误触发底层页面弹栈或直接退出应用。\n- TV：「继续观看」封面与货架等宽；选集每格固定高度、长标题两行截断；跨包迁移后端未移植时正常启动。\n\n### 验证\n\n- 全部 CI/CD 合并为单一工作流，并复用预装工具链与包缓存加速：Rust 112 通过 / 0 失败，浏览器 smoke 全通过，前端双版本（标准版 + TV 版）构建、文档链接、尺寸预算与播放回归矩阵全绿通过。\n\n### 已知限制\n\n- TV↔手机标准包之间的账号/片库跨包迁移后端尚未移植，TV 端迁移入口保持隐藏。\n- iOS 包为无证书构建（需自行签名侧载）；macOS 为 ad-hoc 签名。",
           "downloadURL": "https://github.com/zxsos/HGhubX/releases/download/v2.2.0/HGhubX_2.2.0_ios.ipa",
           "size": 3886166,
-          "minOSVersion": "15.0"
-        },
-        {
-          "version": "2.1.2",
-          "buildVersion": "2.1.2",
-          "date": "2026-11-15T16:56:37Z",
-          "localizedDescription": "## HGhubX 2.1.2\n\n### 更新点\n\n- 标签详情同时展示短剧和吃瓜帖子，并分别分页；标签热度会明确标注，不再与内容数量混淆。\n- 横屏视频按当前播放源的媒体尺寸识别，尺寸确认前使用完整画面适配。\n\n### 修复点\n\n- 修复社区标签只查询短剧接口，导致官网存在帖子但应用显示空列表的问题。\n- 修复切集、切源时媒体尺寸报告竞态导致首页横屏视频被裁切或未显示横屏控制的问题。\n\n\n**Full Changelog**: https://github.com/zxsos/HGhubX/compare/v2.1.1...v2.1.2",
-          "downloadURL": "https://github.com/zxsos/HGhubX/releases/download/v2.1.2/HGhubX_2.1.2_ios.ipa",
-          "size": 3852817,
           "minOSVersion": "15.0"
         }
       ],
