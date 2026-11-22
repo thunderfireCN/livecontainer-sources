@@ -136,6 +136,42 @@ APPS = [
             "注意：包名 com.example.piliplus，最低 iOS 15.0。"
         ),
     },
+    {
+        # iPadn ships two IPAs per release (standard + lite); the
+        # standard build is used, the '-lite-' variant is skipped.
+        "file": "ipadn.json",
+        "upstream": "mengangs/ipadn",
+        "asset_exclude_substr": "-lite-",
+        "name": "iPadn",
+        "identifier": "app.local.ipadn.source",
+        "developer": "mengangs",
+        "category": "utilities",
+        "tint": "#000000",
+        "icon": "https://raw.githubusercontent.com/mengangs/ipadn/main/docs/images/icon.png",
+        "website": "https://github.com/mengangs/ipadn",
+        "description": (
+            "本源由 Lyn 的公开仓库自动维护，安装包为作者发布的未签名 IPA。"
+            "注意：最低 iOS 16.0；请用小号 Apple ID 登录，不要用主号。"
+        ),
+    },
+    {
+        # Mirror of the upstream official source. Lyn chose the official
+        # source on 2026-11-21; this mirror exists only so the subtitle
+        # follows the house format (last update date + version).
+        "file": "zhihu.json",
+        "upstream": "huamurui/zhihu-minus-minus",
+        "name": "知乎--",
+        "identifier": "com.huamurui.zhihuminusminus.source",
+        "developer": "huamurui",
+        "category": "social",
+        "tint": "#0066FF",
+        "icon": "https://raw.githubusercontent.com/huamurui/zhihu-minus-minus/main/src/assets/images/icon.png",
+        "website": "https://github.com/huamurui/zhihu-minus-minus",
+        "description": (
+            "本源由 Lyn 的公开仓库自动维护，安装包为作者发布的未签名 IPA。"
+            "注意：最低 iOS 16.4。"
+        ),
+    },
 ]
 
 MAX_VERSIONS = 5
@@ -168,6 +204,17 @@ def read_ipa_info(ipa_path):
     }
 
 
+def pick_ipa(app, assets):
+    """First .ipa asset, skipping names containing asset_exclude_substr
+    (e.g. iPadn ships a '-lite-' variant alongside the standard build).
+    """
+    cands = [a for a in assets if a["name"].lower().endswith(".ipa")]
+    excl = app.get("asset_exclude_substr")
+    if excl:
+        cands = [a for a in cands if excl not in a["name"]]
+    return cands[0] if cands else None
+
+
 def fetch_release(app):
     """Return (release, ipa_asset) for an app.
 
@@ -178,24 +225,23 @@ def fetch_release(app):
     if app.get("prerelease"):
         rels = api_get(f"https://api.github.com/repos/{app['upstream']}/releases?per_page=10")
         for rel in rels:
-            assets = [a for a in rel.get("assets", [])
-                      if a["name"].lower().endswith(".ipa")]
-            if assets:
-                return rel, assets[0]
+            asset = pick_ipa(app, rel.get("assets", []))
+            if asset:
+                return rel, asset
         return None, None
     rel = api_get(f"https://api.github.com/repos/{app['upstream']}/releases/latest")
-    assets = [a for a in rel.get("assets", []) if a["name"].lower().endswith(".ipa")]
-    return rel, (assets[0] if assets else None)
+    return rel, pick_ipa(app, rel.get("assets", []))
 
 
 def make_subtitle(version, date_iso):
     """Subtitle from the newest version entry, e.g.
-    '最近更新：26/11/14，版本：V2.2.1'. Date is the version's release date.
+    '最近更新:26/11/14，版本:V2.2.1'. Date is the version's release date.
+    Colons are half-width ASCII; the comma stays full-width.
     """
     if date_iso:
         dt = datetime.fromisoformat(date_iso.replace("Z", "+00:00"))
-        return f"最近更新：{dt:%y/%m/%d}，版本：V{version}"
-    return f"版本：V{version}"
+        return f"最近更新:{dt:%y/%m/%d}，版本:V{version}"
+    return f"版本:V{version}"
 
 
 def build_source(app, bundle, versions):
