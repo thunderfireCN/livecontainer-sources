@@ -247,14 +247,15 @@ def display_version(app, entry):
 
 def make_subtitle(app, entry):
     """Subtitle from the newest version entry, e.g.
-    '最近更新:26/11/14，版本:V2.2.1'. Date is the version's release date.
-    Colons are half-width ASCII; the comma stays full-width.
+    '最近更新: 26/11/14，版本: V2.2.1'. Date is the version's release date.
+    Colons are half-width ASCII, each followed by one half-width space;
+    the comma stays full-width.
     """
     date_iso = entry.get("date")
     if date_iso:
         dt = datetime.fromisoformat(date_iso.replace("Z", "+00:00"))
-        return f"最近更新:{dt:%y/%m/%d}，版本:{display_version(app, entry)}"
-    return f"版本:{display_version(app, entry)}"
+        return f"最近更新: {dt:%y/%m/%d}，版本: {display_version(app, entry)}"
+    return f"版本: {display_version(app, entry)}"
 
 
 def build_source(app, bundle, versions):
