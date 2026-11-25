@@ -291,16 +291,29 @@ def build_source(app, bundle, versions):
 def main():
     root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     changed = []
+    succeeded = 0
     for app in APPS:
-        rel, asset = fetch_release(app)
+        try:
+            rel, asset = fetch_release(app)
+        except (urllib.error.HTTPError, urllib.error.URLError) as e:
+            # One dead upstream (e.g. repo blocked/removed) must not kill
+            # the whole daily run; skip it and keep the others updating.
+            print(f"[{app['name']}] upstream unreachable ({e}), skipped")
+            continue
         if rel is None or asset is None:
             print(f"[{app['name']}] no .ipa release found, skipped")
             continue
         tag = (rel.get("tag_name") or "").strip()
         with tempfile.TemporaryDirectory() as td:
             ipa_path = os.path.join(td, asset["name"])
-            urllib.request.urlretrieve(asset["browser_download_url"], ipa_path)
-            info = read_ipa_info(ipa_path)
+            try:
+                urllib.request.urlretrieve(asset["browser_download_url"], ipa_path)
+                info = read_ipa_info(ipa_path)
+            except (urllib.error.HTTPError, urllib.error.URLError,
+                    zipfile.BadZipFile, RuntimeError) as e:
+                print(f"[{app['name']}] download/read failed ({e}), skipped")
+                continue
+            succeeded += 1
             if not info["bundle"] or not info["version"]:
                 print(f"[{app['name']}] unreadable Info.plist, skipped")
                 continue
@@ -353,6 +366,9 @@ def main():
                   f"bundle {info['bundle']} size {asset['size']}")
             changed.append(app["file"])
     print("changed:", changed if changed else "none")
+    if succeeded == 0:
+        print("ERROR: no app could be checked, all upstreams failed")
+        return 1
     return 0
 
 
