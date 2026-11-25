@@ -2,7 +2,7 @@
   "name": "HGhubX",
   "identifier": "com.hghubx.app.source",
   "sourceURL": "https://raw.githubusercontent.com/thunderfireCN/livecontainer-sources/main/hghubx.json",
-  "subtitle": "最近更新: 26/11/23，版本: V2.2.8",
+  "subtitle": "最近更新: 26/11/24，版本: V2.2.10",
   "description": "Minireel/HGhub 的后续分支（原仓库已删库停更）。本源由 Lyn 的公开仓库自动维护，安装包为作者发布的未签名 IPA。注意：包名 com.hghubx.app 与旧版 HGhub 不同，装上是另一个 App，旧版的收藏与观看记录不会带过来。",
   "iconURL": "https://raw.githubusercontent.com/zxsos/HGhubX/main/app-icon.png",
   "website": "https://github.com/zxsos/HGhubX",
@@ -15,12 +15,21 @@
       "name": "HGhubX",
       "bundleIdentifier": "com.hghubx.app",
       "developerName": "zxsos",
-      "subtitle": "最近更新: 26/11/23，版本: V2.2.8",
+      "subtitle": "最近更新: 26/11/24，版本: V2.2.10",
       "localizedDescription": "Minireel/HGhub 的后续分支（原仓库已删库停更）。本源由 Lyn 的公开仓库自动维护，安装包为作者发布的未签名 IPA。注意：包名 com.hghubx.app 与旧版 HGhub 不同，装上是另一个 App，旧版的收藏与观看记录不会带过来。",
       "iconURL": "https://raw.githubusercontent.com/zxsos/HGhubX/main/app-icon.png",
       "tintColor": "#0F3D4A",
       "category": "entertainment",
       "versions": [
+        {
+          "version": "2.2.10",
+          "buildVersion": "2.2.10",
+          "date": "2026-11-24T10:16:05Z",
+          "localizedDescription": "# HGhubX v2.2.10\n\n紧急适配上游全新 `dx150-edge-v1` 四作用域加密网关修复全接口 503，并合入标签置顶、右半屏长按倍速胶囊、搜索页热门标签官网同步、网络切换静默恢复、完结剧集「全 N 集」与窄屏布局修复；覆盖 Windows、macOS、Linux、Android 与 iOS 标准版。\n\n## 新增与优化\n1. **标签页长按置顶与标签结果页标题栏置顶（#247、#252）**：在「分类 → 标签」顶部新增「置顶标签」板块，支持长按标签 600ms 切换置顶/取消（最多 24 个，横向拖动超过 10px 取消防误触）；进入任意标签结果页后，标题栏右侧新增图钉按钮一键置顶（已置顶朝下扎稳并高亮），状态保存在内容偏好 `pinnedTags` 并跨重启保留。\n2. **移动端右半屏长按倍速与顶部只读胶囊提示（#247、#251）**：长按手势取消对角线斜切与居中死区，改为直觉的左右半屏切分（右半屏 `2×` 倍速、左半屏 `0.5×` 慢放，起手延迟缩至 `260ms`，横滑 `68px` 换挡，松手即恢复不锁定）；长按激活期间在安全区顶部居中显示无 `backdrop-filter` 的只读倍速胶囊与挡位点，清屏模式下也有清晰视觉反馈。\n3. **搜索结果 / 分类 / 标签卡片完结剧集显示「全 N 集」（#248）**：已完结剧目在海报底部集数角标统一显示「全 N 集」（优先取 `total_episodes`，缺失时回退 `episode_count`），未完结剧目保持原有更新集数文案。\n\n## 修复\n1. **适配上游 `dx150-edge-v1` 四作用域加密网关，修复接口全 503（#255、#256）**：上游于 2026-11-24 下线旧统一入口 `/api/edge/request`（返回 `HTTP 503 {\"msg\":\"接口已停用\"}`）并拆分为 `/api/{public,dynamic,playback,user}/request`；客户端新增 `edge_crypto` 模块复用 `ring` 实现 ECDH P-256 + HKDF-SHA256 + AES-256-GCM 单飞会话加解密、`public` 作用域 `X-HG-Public-JSON: 1` 快速路径与 `session_expired` 自动重建，同时对未迁移镜像保留旧接口 `404`/`405` 兼容回退，并同步更新草稿代理连通性探测。\n2. **搜索页热门题材与官网首页「热门标签」同步（#250、#254）**：新增 `api_hot_tags` 直接解析官网首页 SSR `section.hg-home-popular-tags`，搜索页严格按官网热门标签集合与顺序展示，移除前端全量 `/api/tags` 重排，点「换一批」不再混入非热门普通标签，保留内容屏蔽过滤与手动刷新同步。\n3. **网络切换误报 401 与静默恢复（#246）**：修复 `edge.rs` 将 HTTP 403 折叠为 `401` 导致切网后误报登录态失效的问题；网络恢复挂起并在回到前台时强制重建客户端与自动选线，跨镜像静默重登按需刷新发布页信任，瞬时失败不再永久锁死同步，不可恢复时去重提示并提供原地「重新登录」入口。\n4. **窄屏手机中英文控件异常折行与裁切（#249）**：收紧 360px / 320px 窄屏容器下「我的关注」「我的主页」「最近上新」「热门推荐」、账号卡 `ID` 与统计行、设置页分段器及海报角标间距，修复中文两字断行与英文按字母切碎/裁切问题。\n\n## 安装与兼容提示\n- Windows 提供 NSIS 安装包与便携压缩包；macOS 提供 Universal DMG；Linux 提供 amd64 `.deb`；Android 标准版按 ABI 提供已签名 APK（`versionCode=2002010`）；iOS 提供未签名 `.ipa`（需自行签名安装）。\n- 覆盖安装保留本机收藏、观看记录、界面语言、线路与内容偏好；Android TV 版（`com.hghubx.tv`）同步发布 `tv-v2.2.5` 修复上游 503。\n\n## 致谢\n- 感谢 @makisekurisu-jp 贡献 #248 完结剧集「全 N 集」展示、#252 标签页与标签结果页置顶功能，以及 #250 搜索页热门标签不同步的根因定位与建议。\n- 感谢 @zxsos 完成 #256 上游 `dx150-edge-v1` 加密网关紧急适配、#246 网络切换静默恢复、#249 窄屏中英文布局修复、#251 移动端右半屏长按倍速胶囊与 #254 搜索页热门标签同步。\n- 感谢 `enjue` 提出 #247 常用标签快速入口与长按倍速提示反馈。\n\n## 验证\n- 合入后本地严检：`make check`（Rust `124 passed; 0 failed; 5 ignored`、`pnpm build` 三套 `tsc` + Vite 构建、827 项 i18n 键校验、226 条文档链接、代码尺寸预算及 `release-check: ok 2.2.10, android versionCode=2002010`）、`pnpm test:smoke`（18/18 套件通过）、`node scripts/test-tag-pins.mjs`（11 项通过）与 `make test-tv` + `node scripts/test-tv-remote.mjs`（14/14 场景通过）全部通过。\n- 实网四作用域联调（`cargo test --lib edge_crypto::tests::live_dx150_edge_all_four_scopes -- --ignored` 对 `https://huangguoai.com`）：`public`、`dynamic`、`playback`、`user` 四个加密通道均握手与加解密通过。\n- PR #246、#248、#249、#251、#252、#254、#256 均在 GitHub Actions 审查检查（8/8）全绿通过后合入；各平台正式产物由 `v2.2.10` 标签触发的 GitHub Actions `Release` 工作流构建并校验。",
+          "downloadURL": "https://github.com/zxsos/HGhubX/releases/download/v2.2.10/HGhubX_2.2.10_ios.ipa",
+          "size": 4048150,
+          "minOSVersion": "15.0"
+        },
         {
           "version": "2.2.8",
           "buildVersion": "2.2.8",
@@ -55,15 +64,6 @@
           "localizedDescription": "# HGhubX v2.2.3\r\n\r\n本版重新安排手机播放控件，改善桌面子页的宽屏布局，并优化「我的」内容管理与吃瓜详情的稳定性。\r\n\r\n## **TV 端无任何改动**\r\n\r\n## 新增与优化\r\n\r\n1. **手机播放控件与全屏手势（#170）**：选集、静音、切集开关和全屏集中到屏幕底部；首页四个按钮使用更透明的底色，减少对画面的遮挡。横屏设置抽屉完整显示倍速选项；全屏支持上下滑切集并提示首尾边界，清屏时保留锁屏入口。\r\n2. **播放详情、标签与搜索（#170）**：「详情」和「选集」支持左右滑动切换，下拉关闭；点按标签查看同类，长按或右键可屏蔽。在栏目内打开的播放页可按当前内容类型搜索，首页底部的全局搜索不受影响。\r\n3. **收藏与观看历史管理（#168、#169）**：在「我的」中长按或右键卡片进入多选，可批量取消收藏或删除观看记录；列表接近底部时自动加载更多，网格列数保持不变。\r\n\r\n## 修复\r\n\r\n1. **吃瓜详情闪烁（#165）**：切换线路或代理时保留已展示的正文和滚动位置；阅读位置更新时复用未变的图片，短暂缓冲不再立即弹出加载动画。\r\n2. **桌面子页顶栏两侧断开（#171）**：「排行榜」「关注」等子页和页内搜索层的顶栏底色、分隔线铺满面板；标题、筛选项和正文仍按原宽度居中。\r\n3. **本人主页与批量操作**：本人主页隐藏「关注」入口；批量取消收藏期间切换账号、线路或代理时，旧批次停止发送后续项目，不显示旧批次的结果。\r\n\r\n## 安装与兼容提示\r\n\r\n- Windows 提供安装程序和便携包；macOS 提供通用架构 DMG；Linux 提供 amd64 DEB。\r\n- Android 标准版和 TV 版分别提供 APK，按设备架构选择 `arm64`、`armv7` 或 `x86_64`。覆盖升级请选相同版本类别，避免卸载造成应用数据丢失。\r\n- iOS 提供未签名 IPA，需自行签名并侧载。收藏「新更 N 集」的提醒基线仍按设备记录，不跨设备同步。\r\n\r\n## 致谢\r\n\r\n- 感谢 @makisekurisu-jp 对手机播放和「我的」页面的贡献；本版由 @zxsos 整合、验证并发布，也感谢反馈桌面布局和吃瓜闪烁问题的用户。\r\n\r\n## 验证\r\n\r\n- [候选版 CI #44678989121](https://github.com/zxsos/HGhubX/actions/runs/44678989121)：标准版与 TV 版前端构建通过；Rust 114 项通过、4 项忽略；浏览器 smoke 7／7 通过；播放核心 7／7、扩展 4／4 通过。浏览器回归确认连续划到第 2、3 集时未跳到其他剧。",
           "downloadURL": "https://github.com/zxsos/HGhubX/releases/download/v2.2.3/HGhubX_2.2.3_ios.ipa",
           "size": 3895060,
-          "minOSVersion": "15.0"
-        },
-        {
-          "version": "2.2.2",
-          "buildVersion": "2.2.2",
-          "date": "2026-11-19T04:39:12Z",
-          "localizedDescription": "## HGhubX 2.2.2\n\n2.2.0 之后的体验修复版本：收藏续播与新集提醒、底部进度预览、TV 启动密码，以及冷启动登录保持与移动端布局 / 键盘修复。\n\n### 新增\n\n- **收藏进度、续播与新集提醒**（#154）：收藏卡片显示上次观看进度；看完一集且有后续时从下一集开头继续；返回收藏页后台刷新集数并保留现有卡片，未看新集显示「新更 N 集」角标。\n- **TV 启动密码**（#152）：设置 → 启动密码可开启 / 修改 / 关闭四位 PIN 或立即锁定；支持遥控器数字键与屏幕键盘，连续输入不再被步骤切换清空，连续输错 5 次进入 15 秒冷却。\n\n### 改进\n\n- **底部进度预览**（#152）：横拖画面或拖动进度条统一在底部预览时间，松手才提交跳转，不再把进度条叠在画面中央。\n- **连续切集**（#156、#157）：下一集加载期间仍可继续划；同类集数提示只更新同一张卡片，不堆叠。\n- TV 解锁页移除重复副标题与底部操作说明，仅保留标题、输入提示与错误反馈。\n\n### 修复\n\n- **冷启动与账号恢复**（#156）：启动动画期间按返回只跳过动画；镜像验证暂时失败不再显示登出；账号同步 401 时同账号静默重登，身份或会话代次不符时保留原会话并提示手动处理。\n- **移动端布局与登录键盘**（#157、#163）：窄屏全宽、平板 / 桌面限宽居中；横竖屏底栏与弹层避开系统安全区；Android 标准版软键盘弹出后，密码框与「登录」按钮仍可滚到可见位置。\n\n### 验证\n\n- 集成校验全绿：前端标准版 + TV 版构建、Rust、浏览器 smoke、Playback core / extended（run 44454852498）。\n- 全平台打包成功：Windows、macOS、Linux、iOS 未签名 IPA、Android 标准版与 TV 版（run 44454856257），Android `versionCode=2002002`。\n- Android 登录键盘修复在 Android 16 手机模拟器按 320×568、360×840 dp 实测通过（#163）；TV PIN 流程由 Chromium TV 用例 14/14 覆盖，未做 TV 实机验收。\n\n### 已知限制\n\n- iOS 包为无证书构建（需自行签名侧载）；macOS 为 ad-hoc 签名。\n- Android `versionCode` 为 `2002002`；已安装更高版本号测试包（如 2.3.0 / `2003000`）的设备需先卸载再安装。\n- 收藏「新更 N 集」基线按设备本地记录，不随账号跨设备同步；新设备首次登录可能显示与旧设备不同的新集数。",
-          "downloadURL": "https://github.com/zxsos/HGhubX/releases/download/v2.2.2/HGhubX_2.2.2_ios.ipa",
-          "size": 3891126,
           "minOSVersion": "15.0"
         }
       ],

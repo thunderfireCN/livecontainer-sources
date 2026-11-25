@@ -2,7 +2,7 @@
   "name": "i短剧",
   "identifier": "com.local.stv.source",
   "sourceURL": "https://raw.githubusercontent.com/thunderfireCN/livecontainer-sources/main/iduanju.json",
-  "subtitle": "最近更新: 26/11/23，版本: V1.6b30",
+  "subtitle": "最近更新: 26/11/25，版本: V1.6b36",
   "description": "App 本身不托管任何内容，数据由设备直接向各公开站点请求。本源由 Lyn 的公开仓库自动维护，安装包为作者发布的未签名 IPA。注意：上游只发预发布版，包名 com.local.STV，最低 iOS 18.0。",
   "iconURL": "https://raw.githubusercontent.com/my-name-is-alan/iDuanJu/main/STV/Assets.xcassets/AppIcon.appiconset/AppIcon-1024.png",
   "website": "https://github.com/my-name-is-alan/iDuanJu",
@@ -15,12 +15,21 @@
       "name": "i短剧",
       "bundleIdentifier": "com.local.STV",
       "developerName": "my-name-is-alan",
-      "subtitle": "最近更新: 26/11/23，版本: V1.6b30",
+      "subtitle": "最近更新: 26/11/25，版本: V1.6b36",
       "localizedDescription": "App 本身不托管任何内容，数据由设备直接向各公开站点请求。本源由 Lyn 的公开仓库自动维护，安装包为作者发布的未签名 IPA。注意：上游只发预发布版，包名 com.local.STV，最低 iOS 18.0。",
       "iconURL": "https://raw.githubusercontent.com/my-name-is-alan/iDuanJu/main/STV/Assets.xcassets/AppIcon.appiconset/AppIcon-1024.png",
       "tintColor": "#2563EB",
       "category": "entertainment",
       "versions": [
+        {
+          "version": "1.6",
+          "buildVersion": "36",
+          "date": "2026-11-25T06:06:26Z",
+          "localizedDescription": "### 更新内容\n\n- 新增红果站源搜索关键词联想功能（防抖、取消旧请求、点击直接进入剧集详情页）及首页搜索来源透传（#35）。\n- 修复搜索页返回时重置已切换站源、联想列表键盘弹出不可滚动及首尾空格处理问题。\n- 默认播放内核改回系统播放器（`AVPlayer`），恢复所有剧集原生画中画（小窗）播放；如需杜比视界/DTS/ASS 字幕仍可在「我的 → 片源管理」手动切换为 MPVKit。\n\n包内版本为 1.6 build 36，直接发布已验证产物。IPA 未签名，最低 iOS 18，请自行重签侧载。\n\n构建源码：585a3d654253422981a93b7a4f948697ffae458b\n构建：https://github.com/my-name-is-alan/iDuanJu/actions/runs/45554380076",
+          "downloadURL": "https://github.com/my-name-is-alan/iDuanJu/releases/download/v1.6b36-pipfix/STV-1.6b36-unsigned.ipa",
+          "size": 47462734,
+          "minOSVersion": "16.0"
+        },
         {
           "version": "1.6",
           "buildVersion": "30",
@@ -56,15 +65,6 @@
           "downloadURL": "https://github.com/my-name-is-alan/iDuanJu/releases/download/v1.6b20-cover-performance/STV-1.6b20-unsigned.ipa",
           "size": 46903453,
           "minOSVersion": "16.0"
-        },
-        {
-          "version": "1.5",
-          "buildVersion": "15",
-          "date": "2026-11-20T08:35:34Z",
-          "localizedDescription": "# i短剧 iOS 1.5 b15 / Android 1.5.15 — 小说界面重构版\n\n本次更新重构了双端小说模块的 **书架 / 书籍搜索 / 书籍详情 / 小说榜单** 四个核心页面，全面对齐短剧 `STVTheme` 视觉体系并精简冗余卡片，同时保留原有 Legado 多源搜索、筛选与阅读功能。\n\n## 本次更新\n\n- **书架**：改为首页同款封面氛围「最近在读」Hero 横幅 + 白色高对比续读按钮；下方「搜书 / 排行榜 / 书源 / 导入」去卡片轻量化；新增「全部 / 在读 / 本地」轻筛选；升级书脊压痕与无图「布面精装」兜底封面。\n- **书籍搜索**：返回、搜索框与启用书源计数合入一体化顶栏；全页 0 卡片开放细线列表，精确命中行自然领衔并展示关键字高亮、简介预览与多源聚合角标。\n- **书籍详情**：对齐短剧详情架构——全幅封面模糊氛围头图、唯一轻容器三列真实指标带（目录总章 / 可用书源 / 离线已缓）、黑白高对比「开始阅读」与圆形「书架 / 下载」按钮（上滑吸底浮现），简介、目录换源与编号试读章节改为开放细线排版。\n- **小说榜单**：移除旧版 86dp 左侧竖栏，采用顶部「书源切换胶囊 + 榜单页签 + 分类胶囊」全宽横栏，搭配 0 卡片 Top 3 三列大封面领奖台与 `#4` 起全宽开放列表。\n- **发布流水线**：新增 tag 自动构建发布工作流（`.github/workflows/release-on-tag.yml`），推送 `v*` 标签自动完成双端构建、校验与 Release 发布。\n\n## 验证说明\n\n- Android：本地通过 `:core:test`、`:app:assembleDebug`、`:app:assembleDebugAndroidTest`，CI 自动构建签名 Release APK 并校验签名与 SHA-256。\n- iOS：CI 自动构建 Release 未签名 IPA 并校验包结构、版本号与 SHA-256；本轮未在实体 iPhone 上做真机 UI 验收。\n\n---\n包内版本为 1.5 build 15。IPA 未签名（最低 iOS 18），请自行重签侧载。\n\n请选择 Assets 中的 APK / IPA，不要下载 Source code。SHA-256 见附件。\n构建源码：311982cbb7c9b6f08a12ac19866b8b8ef6d3390e\n自动构建：https://github.com/my-name-is-alan/iDuanJu/actions/runs/44701111442",
-          "downloadURL": "https://github.com/my-name-is-alan/iDuanJu/releases/download/v1.5b15-novel-ui/STV-1.5b15-unsigned.ipa",
-          "size": 42773255,
-          "minOSVersion": "18.0"
         }
       ],
       "appPermissions": {

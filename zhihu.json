@@ -2,7 +2,7 @@
   "name": "知乎",
   "identifier": "com.huamurui.zhihuminusminus.source",
   "sourceURL": "https://raw.githubusercontent.com/thunderfireCN/livecontainer-sources/main/zhihu.json",
-  "subtitle": "最近更新: 26/11/21，版本: V0.10.0",
+  "subtitle": "最近更新: 26/11/25，版本: V0.10.1",
   "description": "本源由 Lyn 的公开仓库自动维护，安装包为作者发布的未签名 IPA。注意：最低 iOS 16.4。",
   "iconURL": "https://raw.githubusercontent.com/huamurui/zhihu-minus-minus/main/src/assets/images/icon.png",
   "website": "https://github.com/huamurui/zhihu-minus-minus",
@@ -15,12 +15,21 @@
       "name": "知乎",
       "bundleIdentifier": "com.huamurui.ZhihuMinusMinus",
       "developerName": "huamurui",
-      "subtitle": "最近更新: 26/11/21，版本: V0.10.0",
+      "subtitle": "最近更新: 26/11/25，版本: V0.10.1",
       "localizedDescription": "本源由 Lyn 的公开仓库自动维护，安装包为作者发布的未签名 IPA。注意：最低 iOS 16.4。",
       "iconURL": "https://raw.githubusercontent.com/huamurui/zhihu-minus-minus/main/src/assets/images/icon.png",
       "tintColor": "#0066FF",
       "category": "social",
       "versions": [
+        {
+          "version": "0.10.1",
+          "buildVersion": "1",
+          "date": "2026-11-25T07:00:41Z",
+          "localizedDescription": "uiux小调整；安卓低版本登录修复与性能优化；安卓14+预测性返回（可关闭）；ios 换 xcode27 打包。\r\n\r\n### What's Changed\r\n\r\n* Android 单栏预测性返回与设备圆角（v0.10.1） by @huamurui in https://github.com/huamurui/zhihu-minus-minus/pull/212\r\n* fix(android): 修复回答横滑误返回，让预览从起手侧露出 by @huamurui in https://github.com/huamurui/zhihu-minus-minus/pull/218\r\n* 增加可切换的信息流性能模式，并记录 Android 8.1 实测 by @huamurui in https://github.com/huamurui/zhihu-minus-minus/pull/223\r\n* 修复 Windows 本地 Release 包冷启动时的 Sentry 模块缺失 by @huamurui in https://github.com/huamurui/zhihu-minus-minus/pull/220\r\n* 修复 Android 8 平板冷启动后无法恢复登录的问题 by @huamurui in https://github.com/huamurui/zhihu-minus-minus/pull/221\r\n* 修复 Android 8 登录恢复，优化正文加载与信息流滚动 by @huamurui in https://github.com/huamurui/zhihu-minus-minus/pull/222\r\n* 固定「最近发布」顶栏并简化翻页控件 by @huamurui in https://github.com/huamurui/zhihu-minus-minus/pull/224\r\n* 统一自绘顶栏返回按钮，补齐文章和游客预览的返回入口 by @huamurui in https://github.com/huamurui/zhihu-minus-minus/pull/225\r\n* 调整回答详情顶栏显隐，增加滚动条越界压缩效果 by @huamurui in https://github.com/huamurui/zhihu-minus-minus/pull/226\r\n* 支持整张底部面板下拉关闭，优化弹出动效 by @huamurui in https://github.com/huamurui/zhihu-minus-minus/pull/227\r\n\r\n\r\n**Full Changelog**: https://github.com/huamurui/zhihu-minus-minus/compare/v0.10.0...v0.10.1",
+          "downloadURL": "https://github.com/huamurui/zhihu-minus-minus/releases/download/v0.10.1/zhihu-minus-minus-v0.10.1-unsigned.ipa",
+          "size": 14916202,
+          "minOSVersion": "16.4"
+        },
         {
           "version": "0.10.0",
           "buildVersion": "1",
