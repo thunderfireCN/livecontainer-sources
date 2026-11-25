@@ -10,8 +10,7 @@ Usage: python3 scripts/update_sources.py   (run from the repo root)
 - Fetches each upstream repo's latest release (GitHub API; GITHUB_TOKEN is
 used when present, otherwise unauthenticated).
 - Downloads the .ipa asset and reads the REAL bundle ID / version / build /
-minOS from its Info.plist. The tag alone is never trusted: AvPlay changed
-its bundle ID from com.javdb.avplay to com.javdb.avplay2 in 2.2.2.
+minOS from its Info.plist. The tag alone is never trusted.
 - Prepends a new version entry when (version, build) is new; keeps the
 newest 5 versions. If the bundle ID changed, the app entry is updated and
 the change is noted in the new version's description.
@@ -48,21 +47,6 @@ APPS = [
         "description": (
             "本源由 Lyn 的公开仓库自动维护，"
             "安装包为作者发布的未签名 IPA。"
-        ),
-    },
-    {
-        "file": "avplay.json",
-        "upstream": "anonymousjav/AvPlayRelease",
-        "name": "AvPlay",
-        "identifier": "com.javdb.avplay2.source",
-        "developer": "anonymousjav",
-        "category": "entertainment",
-        "tint": "#111111",
-        "icon": "https://raw.githubusercontent.com/anonymousjav/AvPlayRelease/main/resources/logo.png",
-        "website": "https://github.com/anonymousjav/AvPlayRelease",
-        "description": (
-            "本源由 Lyn 的公开仓库自动维护，"
-            "安装包为作者发布的 IPA。"
         ),
     },
     {
