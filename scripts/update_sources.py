@@ -158,6 +158,22 @@ APPS = [
             "注意：最低 iOS 16.4。"
         ),
     },
+    {
+        "file": "reloc.json",
+        "upstream": "Reukix/Reloc",
+        "name": "Reloc",
+        "identifier": "dev.reloc.ios.source",
+        "developer": "Reukix",
+        "category": "utilities",
+        "tint": "#4AA3E8",
+        "icon": "https://raw.githubusercontent.com/Reukix/Reloc/main/Reloc/Resources/Assets.xcassets/AppIcon.appiconset/AppIcon.png",
+        "website": "https://github.com/Reukix/Reloc",
+        "description": (
+            "本源由 Lyn 的公开仓库自动维护，安装包为作者发布的未签名 IPA。"
+            "注意：包名 dev.reloc.ios，最低 iOS 17.0；"
+            "使用前需先配对设备，并保持回环开启。"
+        ),
+    },
 ]
 
 MAX_VERSIONS = 5
