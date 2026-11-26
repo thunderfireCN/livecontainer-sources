@@ -2,7 +2,7 @@
   "name": "HGhubX",
   "identifier": "com.hghubx.app.source",
   "sourceURL": "https://raw.githubusercontent.com/thunderfireCN/livecontainer-sources/main/hghubx.json",
-  "subtitle": "最近更新: 26/11/24，版本: V2.2.10",
+  "subtitle": "最近更新: 26/11/26，版本: V3.0.0",
   "description": "Minireel/HGhub 的后续分支（原仓库已删库停更）。本源由 Lyn 的公开仓库自动维护，安装包为作者发布的未签名 IPA。注意：包名 com.hghubx.app 与旧版 HGhub 不同，装上是另一个 App，旧版的收藏与观看记录不会带过来。",
   "iconURL": "https://raw.githubusercontent.com/zxsos/HGhubX/main/app-icon.png",
   "website": "https://github.com/zxsos/HGhubX",
@@ -15,12 +15,21 @@
       "name": "HGhubX",
       "bundleIdentifier": "com.hghubx.app",
       "developerName": "zxsos",
-      "subtitle": "最近更新: 26/11/24，版本: V2.2.10",
+      "subtitle": "最近更新: 26/11/26，版本: V3.0.0",
       "localizedDescription": "Minireel/HGhub 的后续分支（原仓库已删库停更）。本源由 Lyn 的公开仓库自动维护，安装包为作者发布的未签名 IPA。注意：包名 com.hghubx.app 与旧版 HGhub 不同，装上是另一个 App，旧版的收藏与观看记录不会带过来。",
       "iconURL": "https://raw.githubusercontent.com/zxsos/HGhubX/main/app-icon.png",
       "tintColor": "#0F3D4A",
       "category": "entertainment",
       "versions": [
+        {
+          "version": "3.0.0",
+          "buildVersion": "3.0.0",
+          "date": "2026-11-26T14:16:54Z",
+          "localizedDescription": "# HGhubX v3.0.0\r\n\r\nHGhubX 3.0 正式版：视频内容改由可导入的视频源提供，支持多来源切换与手机、TV 局域网同步，并完成收藏筛选、缓存清理、扫码等多项体验升级；覆盖 Windows、macOS、Linux、Android 与 iOS。\r\n\r\n## 新增与优化\r\n1. **视频源插件系统与离线示例试用**：支持扫码、`hghubx://` 深链、剪贴板口令、HTTPS 链接及本地文件导入，提供切换、回滚、连通性测试及每次进入静默检查更新（60 秒冷却）；无源引导页提供「试用离线示例源」与顶部一键「移除示例源」，可零网络预览界面，随时一键移除。\r\n2. **「我的收藏」组合筛选与下拉刷新（#278）**：将收藏筛选拆分为「观看状态（不限 / 未看完 / 已看完）」与「连载状态（不限 / 连载中 / 已完结）」两轴正交交集，实时联动计数并统一三道杠筛选图标；新增顶部下拉刷新手势与「刷新收藏」按钮，同步检查更新部数与新增集数。\r\n3. **手机与 TV 局域网双向同步配对**：支持手机「扫一扫」识别 TV 二维码或 4 位配对码直连电视端，同步视频源配置、本机收藏/观看记录、内容偏好与常用播放设置；桌面端不再显示 TV 连接与扫码同步入口。\r\n4. **作者目录、标签页与列表加载提速**：作者目录首屏第 1 页即刻渲染并在后台 4 并发补齐分页；「标签」「专题」与搜索页「热门题材」接入按源与线路隔离的本地缓存，二次进入秒开并后台静默刷新；优化源存储并发读写性能。\r\n5. **真实跨平台缓存清理与最高无上限档位**：支持 `128 MB`、`256 MB`、`512 MB`、`1 GB` 与「无上限」5 档调节，真实统计并清理跨端缓存文件（Windows / macOS / Linux / Android / iOS），完整保留登录态、收藏、观看记录与偏好设置。\r\n6. **扫码画质与对焦升级**：「扫一扫」升级 1080p/720p 高清优先流与主后置镜头识别，支持连续自动对焦、点击画面对焦、多镜头「切镜头」切换以及硬件 `BarcodeDetector` 直连解码。\r\n7. **界面细节与包体积优化**：「关于 HGhubX」弹窗换回正式应用 Logo；去掉视频源导入框冗长提示；开启 Android `.so` 与资源压缩及播放器按需拆包，安装包体积大幅减小（Android `arm64` 约 `5.3 MB`）。\r\n\r\n## 修复\r\n1. **切换视频源后封面正常但播放失败**：从离线示例源导入或切换视频源后，推荐流可能停留在旧源条目、播放能力未及时刷新，需要再导入一次才能播放；现在切源后首页、搜索、分类按新源重新加载，播放地址在能力就绪后自动获取。\r\n2. **剪贴板「粘贴」权限不足**：开放原生剪贴板读取能力并统一走原生插件读取，解决部分端拦截网页粘贴的问题。\r\n3. **分类页功能布局与排行榜/标签排版**：恢复完整能力门控入口并修正紧凑双格按钮对齐与文字错位。\r\n4. **iOS 侧载「文件损坏」与插件连接池（#261、#266）**：补齐 iOS 未签包 ad-hoc 签名与权限/深链配置；为源请求接入复用连接池与受控 DoH 回退，改善部分网络下的误报失败。\r\n\r\n## 安装与兼容提示\r\n- Windows 提供 NSIS 安装包与便携压缩包；macOS 提供 Universal DMG；Linux 提供 amd64 `.deb` 与 `.rpm`；Android 提供按 ABI 分包签名 APK（`versionCode=3000000`）；iOS 提供已 ad-hoc 签名的 `.ipa`（需自行重签侧载安装）。\r\n- 从 2.x 升级后首次启动需导入视频源（也可先试用离线示例源）；既有本地收藏、观看记录与偏好设置均予保留。\r\n- 从 3.0 预发布版可直接覆盖安装。\r\n\r\n## 致谢\r\n- 感谢 @makisekurisu-jp、@zxsos 与所有社区反馈者对本版本的贡献。\r\n\r\n## 验证\r\n- 发版前本地完成 `pnpm build`（三套 TypeScript + Vite 构建）、`check-i18n`、`check-doc-links`、`check-size-budgets`、`check-version-sync`、`check-shell-purity`、`make test-tv`、`pnpm test:smoke`（18/18）与 `test-tv-remote`（14/14 场景）；Rust 源码自 3.0.0-pre.2 起无改动，Rust 检查与单元测试由 GitHub Actions `CI` 工作流执行，全平台产物由 GitHub Actions `Release` 工作流构建。",
+          "downloadURL": "https://github.com/zxsos/HGhubX/releases/download/v3.0.0/HGhubX_3.0.0_ios.ipa",
+          "size": 4865415,
+          "minOSVersion": "15.0"
+        },
         {
           "version": "2.2.10",
           "buildVersion": "2.2.10",
@@ -55,15 +64,6 @@
           "localizedDescription": "# HGhubX v2.2.5\r\n\r\n聚焦多语言支持（简体中文、繁体中文、英语）、播放器微光效果与多端播放交互修复；覆盖 Windows、macOS、Linux、Android 与 iOS 标准版。\r\n@makisekurisu-jp @zxsos\r\n## 新增与优化\r\n1. **简体中文、繁体中文与英语界面切换（#190）**：默认使用简体中文，可在「设置 → 外观 → 语言」中一键切换简体中文、繁體中文与 English，切换后立即生效并跨重启持久化；繁体中文与英语词典按需异步加载，首屏默认体积接近零增长。\r\n2. **播放器微光效果（#192）**：低分辨率实时采样当前播放画面颜色并柔和扩散至视频黑边区域；可在「设置 → 播放 → 微光效果」中随时开关（默认开启，关闭后不挂载采样层以节省电量）。\r\n3. **精简移动端长按倍速交互（#193）**：移除拖动至顶部胶囊锁定倍速的繁琐交互，长按右侧仅作临时加速、长按左侧临时 0.5x 减速、松手即恢复原倍速；持久倍速统一在全屏倍速按钮或「更多 → 播放设置」中调整。\r\n\r\n## 修复\r\n1. **桌面端开启「上下划切集」滚轮切集失效（#195）**：桌面端开启「上下划切集」后，鼠标滚轮或触控板纵向滑动原本直接触发列表原生滚动跳到下一部剧；现拦截播放区纵向滚轮并在当前剧内顺滑切集、弹出集数提示，底部控制栏「下一集 ↓ / 下一部 ↓」按钮同步遵循该开关。\r\n2. **清屏锁定后锁图标常驻遮挡画面（#194）**：移动端清屏模式点击锁定后立即隐藏右侧锁图标，锁定期间仅在点按屏幕触发「轻触即可解锁」提示时同步显示解锁按钮 2.2 秒，避免图标常驻干扰观看。\r\n3. **横屏全屏切集时集数提示重复闪现（#191）**：横屏全屏切集时暂存集数提示，待下一集视频尺寸解析完成并真正开播后再于横屏旋转舞台弹出一次，消除切换瞬间在竖屏和横屏位置各弹一次的问题。\r\n\r\n## 安装与兼容提示\r\n- Windows 提供 NSIS 安装包与便携压缩包；macOS 提供 Universal DMG；Linux 提供 amd64 `.deb`；Android 标准版按 ABI 提供已签名 APK（`versionCode=2002005`）；iOS 提供未签名 `.ipa`（需自行签名安装）。\r\n- 覆盖安装保留本机收藏、观看记录、界面语言、线路与内容偏好；Android TV 版（`com.hghubx.tv`）由独立 `tv-v*` 标签单独发布。\r\n\r\n## 致谢\r\n- 感谢 `@makisekurisu-jp` 贡献 #191、#192、#193、#194 播放器视觉与手势交互优化。\r\n\r\n## 验证\r\n- 本地 `make check`（Rust 114 项单元测试、TypeScript 三套配置与 Vite 构建、791 项多语言词典键一致性校验、文档链接、尺寸预算、版本同步）、`pnpm test:smoke`（8/8 套件通过）与 `pnpm test:playback`（`seek`、`gesture`、`episode-toast`、`ambient`、`portrait-fit` 5/5 场景通过）全量验证通过。\r\n- 各平台正式安装包由 `v2.2.5` 标签触发的 GitHub Actions `CI/CD` 工作流构建并校验。",
           "downloadURL": "https://github.com/zxsos/HGhubX/releases/download/v2.2.5/HGhubX_2.2.5_ios.ipa",
           "size": 3927965,
-          "minOSVersion": "15.0"
-        },
-        {
-          "version": "2.2.3",
-          "buildVersion": "2.2.3",
-          "date": "2026-11-20T05:33:55Z",
-          "localizedDescription": "# HGhubX v2.2.3\r\n\r\n本版重新安排手机播放控件，改善桌面子页的宽屏布局，并优化「我的」内容管理与吃瓜详情的稳定性。\r\n\r\n## **TV 端无任何改动**\r\n\r\n## 新增与优化\r\n\r\n1. **手机播放控件与全屏手势（#170）**：选集、静音、切集开关和全屏集中到屏幕底部；首页四个按钮使用更透明的底色，减少对画面的遮挡。横屏设置抽屉完整显示倍速选项；全屏支持上下滑切集并提示首尾边界，清屏时保留锁屏入口。\r\n2. **播放详情、标签与搜索（#170）**：「详情」和「选集」支持左右滑动切换，下拉关闭；点按标签查看同类，长按或右键可屏蔽。在栏目内打开的播放页可按当前内容类型搜索，首页底部的全局搜索不受影响。\r\n3. **收藏与观看历史管理（#168、#169）**：在「我的」中长按或右键卡片进入多选，可批量取消收藏或删除观看记录；列表接近底部时自动加载更多，网格列数保持不变。\r\n\r\n## 修复\r\n\r\n1. **吃瓜详情闪烁（#165）**：切换线路或代理时保留已展示的正文和滚动位置；阅读位置更新时复用未变的图片，短暂缓冲不再立即弹出加载动画。\r\n2. **桌面子页顶栏两侧断开（#171）**：「排行榜」「关注」等子页和页内搜索层的顶栏底色、分隔线铺满面板；标题、筛选项和正文仍按原宽度居中。\r\n3. **本人主页与批量操作**：本人主页隐藏「关注」入口；批量取消收藏期间切换账号、线路或代理时，旧批次停止发送后续项目，不显示旧批次的结果。\r\n\r\n## 安装与兼容提示\r\n\r\n- Windows 提供安装程序和便携包；macOS 提供通用架构 DMG；Linux 提供 amd64 DEB。\r\n- Android 标准版和 TV 版分别提供 APK，按设备架构选择 `arm64`、`armv7` 或 `x86_64`。覆盖升级请选相同版本类别，避免卸载造成应用数据丢失。\r\n- iOS 提供未签名 IPA，需自行签名并侧载。收藏「新更 N 集」的提醒基线仍按设备记录，不跨设备同步。\r\n\r\n## 致谢\r\n\r\n- 感谢 @makisekurisu-jp 对手机播放和「我的」页面的贡献；本版由 @zxsos 整合、验证并发布，也感谢反馈桌面布局和吃瓜闪烁问题的用户。\r\n\r\n## 验证\r\n\r\n- [候选版 CI #44678989121](https://github.com/zxsos/HGhubX/actions/runs/44678989121)：标准版与 TV 版前端构建通过；Rust 114 项通过、4 项忽略；浏览器 smoke 7／7 通过；播放核心 7／7、扩展 4／4 通过。浏览器回归确认连续划到第 2、3 集时未跳到其他剧。",
-          "downloadURL": "https://github.com/zxsos/HGhubX/releases/download/v2.2.3/HGhubX_2.2.3_ios.ipa",
-          "size": 3895060,
           "minOSVersion": "15.0"
         }
       ],
