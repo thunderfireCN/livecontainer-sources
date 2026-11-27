@@ -35,21 +35,6 @@ RAW_BASE = f"https://raw.githubusercontent.com/{REPO}/{BRANCH}"
 
 APPS = [
     {
-        "file": "airbeep.json",
-        "upstream": "LinkPass888/AirBeep",
-        "name": "AirBeep",
-        "identifier": "com.linkpass888.airbeep.source",
-        "developer": "LinkPass888",
-        "category": "utilities",
-        "tint": "#2563EB",
-        "icon": "https://raw.githubusercontent.com/LinkPass888/AirBeep/main/Appicon.icon/Assets/call-recording-sound-icon-v5.png",
-        "website": "https://github.com/LinkPass888/AirBeep",
-        "description": (
-            "本源由 Lyn 的公开仓库自动维护，"
-            "安装包为作者发布的未签名 IPA。"
-        ),
-    },
-    {
         "file": "cloudn.json",
         "upstream": "mengangs/Cloudn",
         "name": "Cloudn",
@@ -62,24 +47,6 @@ APPS = [
         "description": (
             "本源由 Lyn 的公开仓库自动维护，"
             "安装包为作者发布的未签名 IPA。"
-        ),
-    },
-    {
-        "file": "hghubx.json",
-        "upstream": "zxsos/HGhubX",
-        "name": "HGhubX",
-        "identifier": "com.hghubx.app.source",
-        "developer": "zxsos",
-        "category": "entertainment",
-        "tint": "#0F3D4A",
-        "icon": "https://raw.githubusercontent.com/zxsos/HGhubX/main/app-icon.png",
-        "website": "https://github.com/zxsos/HGhubX",
-        "description": (
-            "Minireel/HGhub 的后续分支（原仓库已删库停更）。"
-            "本源由 Lyn 的公开仓库自动维护，"
-            "安装包为作者发布的未签名 IPA。"
-            "注意：包名 com.hghubx.app 与旧版 HGhub 不同，装上是另一个 App，"
-            "旧版的收藏与观看记录不会带过来。"
         ),
     },
     {
