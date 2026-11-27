@@ -2,7 +2,7 @@
   "name": "Reloc",
   "identifier": "dev.reloc.ios.source",
   "sourceURL": "https://raw.githubusercontent.com/thunderfireCN/livecontainer-sources/main/reloc.json",
-  "subtitle": "最近更新: 26/11/26，版本: V1.0.2",
+  "subtitle": "最近更新: 26/11/27，版本: V1.0.4",
   "description": "本源由 Lyn 的公开仓库自动维护，安装包为作者发布的未签名 IPA。注意：包名 dev.reloc.ios，最低 iOS 17.0；使用前需先配对设备，并保持回环开启。",
   "iconURL": "https://raw.githubusercontent.com/Reukix/Reloc/main/Reloc/Resources/Assets.xcassets/AppIcon.appiconset/AppIcon.png",
   "website": "https://github.com/Reukix/Reloc",
@@ -15,12 +15,21 @@
       "name": "Reloc",
       "bundleIdentifier": "dev.reloc.ios",
       "developerName": "Reukix",
-      "subtitle": "最近更新: 26/11/26，版本: V1.0.2",
+      "subtitle": "最近更新: 26/11/27，版本: V1.0.4",
       "localizedDescription": "本源由 Lyn 的公开仓库自动维护，安装包为作者发布的未签名 IPA。注意：包名 dev.reloc.ios，最低 iOS 17.0；使用前需先配对设备，并保持回环开启。",
       "iconURL": "https://raw.githubusercontent.com/Reukix/Reloc/main/Reloc/Resources/Assets.xcassets/AppIcon.appiconset/AppIcon.png",
       "tintColor": "#4AA3E8",
       "category": "utilities",
       "versions": [
+        {
+          "version": "1.0.4",
+          "buildVersion": "5",
+          "date": "2026-11-27T11:22:31Z",
+          "localizedDescription": "## Reloc v1.0.4\n\n### 更新\n- **正式支持 iPad**：移除原有的仅限 iPhone 限制，现已支持 iPad（iPadOS 17.0+）直接使用，真机实测正常。\n\n---\n\n### What's New\n- **iPad Support**: Removed the iPhone-only restriction — Reloc now supports iPad (iPadOS 17.0+) and has been verified on real iPad hardware.",
+          "downloadURL": "https://github.com/Reukix/Reloc/releases/download/v1.0.4/Reloc.ipa",
+          "size": 3475407,
+          "minOSVersion": "17.0"
+        },
         {
           "version": "1.0.2",
           "buildVersion": "3",
