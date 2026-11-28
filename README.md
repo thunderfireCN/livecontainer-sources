@@ -11,7 +11,7 @@
 | PiliPlus | 未装 | 2.2.1 | https://raw.githubusercontent.com/thunderfireCN/livecontainer-sources/main/piliplus.json |
 | iPadn | 未装 | 2.3.5 | https://raw.githubusercontent.com/thunderfireCN/livecontainer-sources/main/ipadn.json |
 | 知乎 | 未装 | 0.10.1 | https://raw.githubusercontent.com/thunderfireCN/livecontainer-sources/main/zhihu.json |
-| Reloc | 未装 | 1.0.2 | https://raw.githubusercontent.com/thunderfireCN/livecontainer-sources/main/reloc.json |
+| Reloc | 未装 | 1.0.5 | https://raw.githubusercontent.com/thunderfireCN/livecontainer-sources/main/reloc.json |
 
 点下面链接直接在 LiveContainer 里添加：
 
@@ -30,8 +30,8 @@
 - **PiliPlus 已加入**：第三方哔哩哔哩客户端（Flutter 开源），最新 2.2.1（2026-11-14）；包名 `com.example.piliplus`，最低 iOS 15.0。
 - **iPadn 已加入**：上游每版发两个 IPA（标准版 + lite 版），本源只跟标准版；最新 2.3.5（2026-11-23）；包名 `app.local.iPadn`，最低 iOS 16.0；请用小号 Apple ID 登录，不要用主号。
 - **知乎 已加入**：上游官方也有自己的源，这个是仓库里的镜像，副标题跟统一格式；最新 0.10.1（2026-11-25）；包名 `com.huamurui.ZhihuMinusMinus`，最低 iOS 16.4。
-- **Reloc 已加入**：最新 1.0.2（2026-11-26）；包名 `dev.reloc.ios`，最低 iOS 17.0；使用前需先配对设备，并保持回环开启。
-- Cloudn 最低 iOS 17.0，i短剧最低 iOS 18.0，PiliPlus 最低 iOS 15.0，iPadn 最低 iOS 16.0，知乎最低 iOS 16.4，Reloc 最低 iOS 17.0。
+- **Reloc 已加入**：最新 1.0.5（2026-11-28）；包名 `dev.reloc.ios`，最低 iOS 16.0；使用前需先配对设备，并保持回环开启。
+- Cloudn 最低 iOS 17.0，i短剧最低 iOS 18.0，PiliPlus 最低 iOS 15.0，iPadn 最低 iOS 16.0，知乎最低 iOS 16.4，Reloc 最低 iOS 16.0。
 
 ## 自动更新
 
