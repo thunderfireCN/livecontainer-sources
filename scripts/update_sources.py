@@ -137,7 +137,7 @@ APPS = [
         "website": "https://github.com/Reukix/Reloc",
         "description": (
             "本源由 Lyn 的公开仓库自动维护，安装包为作者发布的未签名 IPA。"
-            "注意：包名 dev.reloc.ios，最低 iOS 17.0；"
+            "注意：包名 dev.reloc.ios，最低 iOS 16.0；"
             "使用前需先配对设备，并保持回环开启。"
         ),
     },
